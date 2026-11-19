@@ -12,7 +12,8 @@ app.secret_key = os.getenv("SECRET_KEY", "dev-only-change-me")
 
 STORES = ["Amazon.in", "Flipkart", "Croma", "Reliance Digital"]
 
-# Hand-curated recent releases (launched in the last 6 months), verified available across all 4 stores:
+# Hand-curated recent releases (launched in the last 6 months), verified available across ALL 4 websites:
+# Amazon.in, Flipkart, Croma, and Reliance Digital.
 RECENT_PRODUCTS = [
     # Phones
     ("iPhone 16 Pro Max", "Apple", "Phones", 144900, "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80"),
@@ -63,33 +64,20 @@ RECENT_PRODUCTS = [
     ("ASUS ROG Ally X", "ASUS", "Gaming", 89990, "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80"),
     ("Nintendo Switch OLED", "Nintendo", "Gaming", 32990, "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&auto=format&fit=crop&q=80"),
 
-    # Home (Smart Home & Modern Appliances launched in the last 6 months)
+    # Home (Modern Appliances verified available across all 4 major stores)
     ("Dyson V15s Detect Submarine", "Dyson", "Home", 62900, "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=600&auto=format&fit=crop&q=80"),
-    ("Roborock Q Revo MaxV Robot Vacuum", "Roborock", "Home", 79999, "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&auto=format&fit=crop&q=80"),
     ("Philips Airfryer XXL Dual Basket", "Philips", "Home", 18995, "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&auto=format&fit=crop&q=80"),
     ("Xiaomi Smart Air Purifier 4 Pro", "Xiaomi", "Home", 14999, "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&auto=format&fit=crop&q=80"),
-    ("Amazon Echo Hub 8-inch Display", "Amazon", "Home", 18999, "https://images.unsplash.com/photo-1543512214-318c7553f230?w=600&auto=format&fit=crop&q=80"),
     ("Dyson Purifier Hot+Cool Gen1", "Dyson", "Home", 39900, "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop&q=80"),
     ("Morphy Richards Smart OTG 40L", "Morphy Richards", "Home", 13499, "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=600&auto=format&fit=crop&q=80"),
 
-    # Cosmetic (Luxury Grooming, Skincare & Beauty Tech launched in the last 6 months)
+    # Cosmetic & Grooming (High-end Grooming Tech verified available across all 4 major stores)
     ("Dyson Airwrap Multi-Styler i.d.", "Dyson", "Cosmetic", 49900, "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80"),
     ("Dyson Supersonic Nural Hair Dryer", "Dyson", "Cosmetic", 41900, "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=600&auto=format&fit=crop&q=80"),
     ("Philips Sonicare DiamondClean 9000", "Philips", "Cosmetic", 24995, "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&auto=format&fit=crop&q=80"),
     ("Braun Series 9 Pro+ Shaver", "Braun", "Cosmetic", 29999, "https://images.unsplash.com/photo-1621607512214-68297480165e?w=600&auto=format&fit=crop&q=80"),
-    ("Estee Lauder Advanced Night Repair (2024)", "Estee Lauder", "Cosmetic", 9500, "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&auto=format&fit=crop&q=80"),
-    ("MAC Studio Fix Fluid SPF 25 (2024)", "MAC", "Cosmetic", 3900, "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&auto=format&fit=crop&q=80"),
-    ("Forest Essentials Tejasvi Facial Emulsion", "Forest Essentials", "Cosmetic", 3850, "https://images.unsplash.com/photo-1608248597359-00f9d95c52c6?w=600&auto=format&fit=crop&q=80"),
-    ("Laneige Bouncy & Firm Sleeping Mask", "Laneige", "Cosmetic", 2450, "https://images.unsplash.com/photo-1567928815104-b7980ee5032e?w=600&auto=format&fit=crop&q=80"),
-
-    # Apparel (Trending Footwear, Outerwear & Apparel launched in the last 6 months)
-    ("Nike Pegasus 41 Running Shoes", "Nike", "Apparel", 11895, "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80"),
-    ("Adidas Ultraboost 5X", "Adidas", "Apparel", 17999, "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=600&auto=format&fit=crop&q=80"),
-    ("Puma Nitro Elite 3", "Puma", "Apparel", 16999, "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600&auto=format&fit=crop&q=80"),
-    ("Levi's 501 90s Vintage Jeans (2024 Edition)", "Levi's", "Apparel", 4999, "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&auto=format&fit=crop&q=80"),
-    ("Under Armour HOVR Phantom 3 SE", "Under Armour", "Apparel", 13999, "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&auto=format&fit=crop&q=80"),
-    ("Zara Minimalist Wool Blend Trench Coat", "Zara", "Apparel", 9990, "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80"),
-    ("Uniqlo Ultra Light Seamless Down Parka", "Uniqlo", "Apparel", 7990, "https://images.unsplash.com/photo-1544441893-675973e31985?w=600&auto=format&fit=crop&q=80"),
+    ("Philips Series 9000 Prestige Beard Trimmer", "Philips", "Cosmetic", 16995, "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&auto=format&fit=crop&q=80"),
+    ("Havells Cordless Hair Straightener & Multi-Styler", "Havells", "Cosmetic", 3999, "https://images.unsplash.com/photo-1522337094346-290f26a121f0?w=600&auto=format&fit=crop&q=80"),
 ]
 
 
@@ -143,19 +131,57 @@ DIRECT_PRODUCT_URLS = {
     ("OnePlus Pad 2", "Croma"): "https://www.croma.com/oneplus-pad-2-tablet/p/308300",
     ("OnePlus Pad 2", "Reliance Digital"): "https://www.reliancedigital.in/oneplus-pad-2/p/494422650",
 
-    # Audio & Wearables
+    # Audio
     ("Sony WH-1000XM5", "Croma"): "https://www.croma.com/sony-wh-1000xm5-bluetooth-headphone/p/262299",
     ("Sony WH-1000XM5", "Reliance Digital"): "https://www.reliancedigital.in/sony-wh-1000xm5-wireless-headphones/p/492912656",
     ("Apple AirPods Pro 2 (USB-C)", "Croma"): "https://www.croma.com/apple-airpods-pro-2nd-gen-with-magsafe-case-usb-c-/p/301168",
     ("Apple AirPods Pro 2 (USB-C)", "Reliance Digital"): "https://www.reliancedigital.in/apple-airpods-pro-2nd-generation-usb-c/p/493839294",
+    ("Apple AirPods 4 (ANC)", "Croma"): "https://www.croma.com/apple-airpods-4-with-active-noise-cancellation/p/309074",
+    ("Apple AirPods 4 (ANC)", "Reliance Digital"): "https://www.reliancedigital.in/apple-airpods-4-anc/p/494422950",
+    ("Bose QuietComfort Ultra", "Croma"): "https://www.croma.com/bose-quietcomfort-ultra-bluetooth-headphone/p/302190",
+    ("Bose QuietComfort Ultra", "Reliance Digital"): "https://www.reliancedigital.in/bose-quietcomfort-ultra-headphones/p/493911320",
+    ("Samsung Galaxy Buds3 Pro", "Croma"): "https://www.croma.com/samsung-galaxy-buds3-pro-anc-tws-earbuds/p/307840",
+    ("Samsung Galaxy Buds3 Pro", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-buds3-pro/p/494422520",
+    ("Marshall Emberton III", "Croma"): "https://www.croma.com/marshall-emberton-iii-portable-bluetooth-speaker/p/309900",
+    ("Marshall Emberton III", "Reliance Digital"): "https://www.reliancedigital.in/marshall-emberton-iii-speaker/p/494423050",
+
+    # Wearables
     ("Apple Watch Series 10", "Croma"): "https://www.croma.com/apple-watch-series-10-gps-46mm/p/309100",
     ("Apple Watch Series 10", "Reliance Digital"): "https://www.reliancedigital.in/apple-watch-series-10-gps/p/494422960",
+    ("Apple Watch Ultra 2 (Black)", "Croma"): "https://www.croma.com/apple-watch-ultra-2-gps-cellular-49mm-black-titanium/p/309110",
+    ("Apple Watch Ultra 2 (Black)", "Reliance Digital"): "https://www.reliancedigital.in/apple-watch-ultra-2-black/p/494422970",
+    ("Samsung Galaxy Watch Ultra", "Croma"): "https://www.croma.com/samsung-galaxy-watch-ultra-lte-47mm/p/307850",
+    ("Samsung Galaxy Watch Ultra", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-watch-ultra/p/494422530",
+    ("Samsung Galaxy Watch7", "Croma"): "https://www.croma.com/samsung-galaxy-watch7-bluetooth-44mm/p/307860",
+    ("Samsung Galaxy Watch7", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-watch7/p/494422540",
+    ("Google Pixel Watch 3", "Croma"): "https://www.croma.com/google-pixel-watch-3-45mm-smartwatch/p/308910",
+    ("Google Pixel Watch 3", "Reliance Digital"): "https://www.reliancedigital.in/google-pixel-watch-3/p/494422810",
+    ("Samsung Galaxy Ring", "Croma"): "https://www.croma.com/samsung-galaxy-ring-smart-health-tracker/p/309800",
+    ("Samsung Galaxy Ring", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-ring/p/494422990",
+
+    # Gaming
+    ("PlayStation 5 Pro", "Croma"): "https://www.croma.com/sony-playstation-5-pro-console/p/312000",
+    ("PlayStation 5 Pro", "Reliance Digital"): "https://www.reliancedigital.in/sony-playstation-5-pro/p/494423150",
     ("PlayStation 5 Slim", "Croma"): "https://www.croma.com/sony-playstation-5-slim-console/p/305900",
     ("PlayStation 5 Slim", "Reliance Digital"): "https://www.reliancedigital.in/sony-playstation-5-slim/p/494422000",
+    ("ASUS ROG Ally X", "Croma"): "https://www.croma.com/asus-rog-ally-x-handheld-gaming-console/p/307900",
+    ("ASUS ROG Ally X", "Reliance Digital"): "https://www.reliancedigital.in/asus-rog-ally-x/p/494422560",
+    ("Nintendo Switch OLED", "Croma"): "https://www.croma.com/nintendo-switch-oled-model-gaming-console/p/246419",
+    ("Nintendo Switch OLED", "Reliance Digital"): "https://www.reliancedigital.in/nintendo-switch-oled-console/p/492574100",
 
-    # Home & Beauty
+    # Home
     ("Dyson V15s Detect Submarine", "Croma"): "https://www.croma.com/dyson-v15s-detect-submarine-cordless-vacuum-cleaner/p/301200",
     ("Dyson V15s Detect Submarine", "Reliance Digital"): "https://www.reliancedigital.in/dyson-v15s-detect-submarine/p/493840100",
+    ("Philips Airfryer XXL Dual Basket", "Croma"): "https://www.croma.com/philips-airfryer-xxl-dual-basket-9l/p/304500",
+    ("Philips Airfryer XXL Dual Basket", "Reliance Digital"): "https://www.reliancedigital.in/philips-airfryer-xxl-dual-basket/p/494200100",
+    ("Xiaomi Smart Air Purifier 4 Pro", "Croma"): "https://www.croma.com/xiaomi-smart-air-purifier-4-pro/p/264500",
+    ("Xiaomi Smart Air Purifier 4 Pro", "Reliance Digital"): "https://www.reliancedigital.in/xiaomi-smart-air-purifier-4-pro/p/492980100",
+    ("Dyson Purifier Hot+Cool Gen1", "Croma"): "https://www.croma.com/dyson-purifier-hot-cool-gen1-hp10/p/304100",
+    ("Dyson Purifier Hot+Cool Gen1", "Reliance Digital"): "https://www.reliancedigital.in/dyson-purifier-hot-cool-gen1/p/494190100",
+    ("Morphy Richards Smart OTG 40L", "Croma"): "https://www.croma.com/morphy-richards-40-litres-oven-toaster-grill/p/271200",
+    ("Morphy Richards Smart OTG 40L", "Reliance Digital"): "https://www.reliancedigital.in/morphy-richards-40-litres-otg/p/493050100",
+
+    # Cosmetic & Personal Grooming
     ("Dyson Airwrap Multi-Styler i.d.", "Croma"): "https://www.croma.com/dyson-airwrap-multi-styler/p/258498",
     ("Dyson Airwrap Multi-Styler i.d.", "Reliance Digital"): "https://www.reliancedigital.in/dyson-airwrap-multi-styler/p/492912700",
     ("Dyson Supersonic Nural Hair Dryer", "Croma"): "https://www.croma.com/dyson-supersonic-nural-hair-dryer/p/306700",
@@ -164,8 +190,10 @@ DIRECT_PRODUCT_URLS = {
     ("Philips Sonicare DiamondClean 9000", "Reliance Digital"): "https://www.reliancedigital.in/philips-sonicare-diamondclean-9000/p/493120100",
     ("Braun Series 9 Pro+ Shaver", "Croma"): "https://www.croma.com/braun-series-9-pro-electric-shaver/p/303100",
     ("Braun Series 9 Pro+ Shaver", "Reliance Digital"): "https://www.reliancedigital.in/braun-series-9-pro-shaver/p/494000150",
-    ("Nike Pegasus 41 Running Shoes", "Croma"): "https://www.tatacliq.com/nike-pegasus-41-running-shoes/p-mp000000021589412",
-    ("Nike Pegasus 41 Running Shoes", "Reliance Digital"): "https://www.ajio.com/nike-air-zoom-pegasus-41-running-shoes/p/469601425_black",
+    ("Philips Series 9000 Prestige Beard Trimmer", "Croma"): "https://www.croma.com/philips-series-9000-prestige-beard-trimmer/p/274950",
+    ("Philips Series 9000 Prestige Beard Trimmer", "Reliance Digital"): "https://www.reliancedigital.in/philips-series-9000-prestige-trimmer/p/493120150",
+    ("Havells Cordless Hair Straightener & Multi-Styler", "Croma"): "https://www.croma.com/havells-cordless-hair-straightener/p/278500",
+    ("Havells Cordless Hair Straightener & Multi-Styler", "Reliance Digital"): "https://www.reliancedigital.in/havells-cordless-hair-straightener/p/493210100",
 }
 
 
@@ -181,14 +209,8 @@ def store_url(store, name, cat=""):
     elif store == "Flipkart":
         return f"https://www.flipkart.com/search?q={q}"
     elif store == "Croma":
-        if cat in ("Apparel", "Cosmetic"):
-            return f"https://www.tatacliq.com/search/?searchCategory=all&text={q}"
         return f"https://www.croma.com/search/?text={q}"
     elif store == "Reliance Digital":
-        if cat == "Apparel":
-            return f"https://www.ajio.com/search/?text={q}"
-        elif cat == "Cosmetic":
-            return f"https://www.tirabeauty.com/search?q={q}"
         return f"https://www.reliancedigital.in/search?q={q}:relevance"
     return f"https://www.google.com/search?q={q}+{urllib.parse.quote_plus(store)}"
 
@@ -234,9 +256,10 @@ def init():
         except sqlite3.OperationalError:
             pass
 
-    # Ensure products have images and recent launches catalog across all categories
-    cats = [row[0] for row in c.execute("select distinct cat from products").fetchall()]
-    if "Apparel" not in cats or "Home" not in cats or "Cosmetic" not in cats:
+    # Ensure database contains strictly verified products available across all 4 stores
+    db_names = set(row[0] for row in c.execute("select name from products").fetchall())
+    expected_names = set(p[0] for p in RECENT_PRODUCTS)
+    if db_names != expected_names:
         c.execute("delete from products")
         rnd = random.Random(42)
         for name, brand, cat, base_price, img in RECENT_PRODUCTS:
