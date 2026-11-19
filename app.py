@@ -72,9 +72,9 @@ def store_url(store, name):
     elif store == "Flipkart":
         return f"https://www.flipkart.com/search?q={q}"
     elif store == "Croma":
-        return f"https://www.croma.com/searchB?q={q}"
+        return f"https://www.croma.com/search/?text={q}"
     elif store == "Reliance Digital":
-        return f"https://www.reliancedigital.in/search?q={q}"
+        return f"https://www.reliancedigital.in/search?q={q}:relevance"
     return f"https://www.google.com/search?q={q}+{urllib.parse.quote_plus(store)}"
 
 
