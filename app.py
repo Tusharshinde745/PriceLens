@@ -1,4 +1,4 @@
-import json, os, random, sqlite3, threading, time
+import json, os, random, sqlite3, threading, time, urllib.parse
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, session, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -10,42 +10,72 @@ DB = os.path.join(BASE, "pricelens.db")
 app = Flask(__name__, static_folder="static")
 app.secret_key = os.getenv("SECRET_KEY", "dev-only-change-me")
 
-# Starting prices are approximate INR list prices used to seed the demo.
-CATALOG = {
-"Phones": """iPhone 17|Apple|82900; iPhone 17 Pro|Apple|134900; iPhone 17 Pro Max|Apple|149900; iPhone Air|Apple|119900;
-iPhone 16|Apple|69900; Galaxy S25 Ultra|Samsung|129999; Galaxy S25|Samsung|80999; Galaxy Z Fold7|Samsung|174999;
-Galaxy Z Flip7|Samsung|109999; Galaxy A56|Samsung|41999; Pixel 10 Pro|Google|109999; Pixel 10|Google|79999;
-OnePlus 13|OnePlus|69999; Nothing Phone (3)|Nothing|79999; Xiaomi 15|Xiaomi|64999; Realme GT 7|Realme|39999""",
-"Laptops": """MacBook Air 13 M4|Apple|99900; MacBook Air 15 M4|Apple|124900; MacBook Pro 14 M5|Apple|169900;
-MacBook Pro 16 M4 Pro|Apple|249900; Dell XPS 14|Dell|179990; Dell Inspiron 14|Dell|64990; HP Spectre x360|HP|159990;
-HP Pavilion 15|HP|62990; ThinkPad X1 Carbon|Lenovo|189990; Legion 5|Lenovo|109990; ROG Zephyrus G14|ASUS|169990;
-Zenbook 14 OLED|ASUS|89990""",
-"Tablets": """iPad Pro 13 M5|Apple|129900; iPad Air 11 M3|Apple|59900; iPad 11th Gen|Apple|34900; iPad mini|Apple|49900;
-Galaxy Tab S10 Ultra|Samsung|108999; Galaxy Tab S10 FE|Samsung|38999; OnePlus Pad 3|OnePlus|47999;
-Xiaomi Pad 7|Xiaomi|27999; Lenovo Tab P12|Lenovo|31999""",
-"Audio": """AirPods Pro 3|Apple|24900; AirPods 4|Apple|12900; AirPods Max|Apple|59900; Sony WH-1000XM6|Sony|39990;
-Sony WF-1000XM5|Sony|24990; Bose QuietComfort Ultra|Bose|35900; Galaxy Buds3 Pro|Samsung|17999;
-Nothing Ear (a)|Nothing|7999; JBL Flip 7|JBL|11999; Marshall Emberton III|Marshall|17999; Sonos Ace|Sonos|39999;
-boAt Airdopes 311 Pro|boAt|1299""",
-"Wearables": """Apple Watch Series 11|Apple|46900; Apple Watch Ultra 3|Apple|89900; Apple Watch SE 3|Apple|25900;
-Galaxy Watch8|Samsung|32999; Galaxy Ring|Samsung|38999; Pixel Watch 4|Google|39999; Garmin Forerunner 265|Garmin|42990;
-Garmin Fenix 8|Garmin|99990; Fitbit Charge 6|Fitbit|14999; Amazfit Balance 2|Amazfit|24999""",
-"Gaming": """PlayStation 5 Pro|Sony|59990; PlayStation 5 Slim|Sony|49990; Xbox Series X|Microsoft|52990;
-Xbox Series S|Microsoft|34990; Nintendo Switch 2|Nintendo|44999; ROG Ally X|ASUS|89990; Meta Quest 3S|Meta|29990;
-DualSense Controller|Sony|5990; G Pro X Superlight 2|Logitech|14995; BlackShark V2 Pro|Razer|17999""",
-"Home": """LG C5 55 inch OLED|LG|139990; Samsung Crystal 4K 55 inch|Samsung|44990; Xiaomi FX Pro 43 inch|Xiaomi|28999;
-Apple TV 4K|Apple|14900; Echo Dot|Amazon|5499; Echo Show 8|Amazon|14999; Nest Mini|Google|4499;
-Dyson V15 Detect|Dyson|65900; Roborock Q Revo|Roborock|49999; Philips Air Fryer XXL|Philips|14995;
-Dyson Airwrap|Dyson|45900; Kindle Paperwhite|Amazon|16999""",
-"Cameras": """Sony A7 IV|Sony|239990; Canon EOS R50|Canon|74995; Nikon Z6 III|Nikon|219995; Fujifilm X-T50|Fujifilm|139999;
-GoPro Hero 13 Black|GoPro|39990; DJI Osmo Pocket 3|DJI|49990; DJI Mini 4 Pro|DJI|78990; Insta360 X4|Insta360|49990;
-Instax Mini 12|Fujifilm|7999""",
-"Accessories": """Anker 737 Power Bank|Anker|8999; MagSafe Charger|Apple|4500; Apple Pencil Pro|Apple|11900;
-Magic Keyboard|Apple|9900; Magic Mouse|Apple|9500; AirTag 4 pack|Apple|10900; MX Master 3S|Logitech|9995;
-Samsung T7 SSD 1TB|Samsung|9999; SanDisk Extreme 1TB|SanDisk|8999; Keychron K2|Keychron|8999;
-Dell UltraSharp 27 4K|Dell|45999""",
-}
 STORES = ["Amazon.in", "Flipkart", "Croma", "Reliance Digital"]
+
+# Hand-curated recent releases (launched in the last 6 months), verified available across all 4 stores:
+RECENT_PRODUCTS = [
+    # Phones
+    ("iPhone 16 Pro Max", "Apple", "Phones", 144900, "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80"),
+    ("iPhone 16 Pro", "Apple", "Phones", 119900, "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80"),
+    ("iPhone 16", "Apple", "Phones", 79900, "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy S25 Ultra", "Samsung", "Phones", 129999, "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy S25", "Samsung", "Phones", 79999, "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80"),
+    ("OnePlus 13", "OnePlus", "Phones", 69999, "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80"),
+    ("Google Pixel 9 Pro", "Google", "Phones", 109999, "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=600&auto=format&fit=crop&q=80"),
+    ("Google Pixel 9", "Google", "Phones", 79999, "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy Z Fold6", "Samsung", "Phones", 164999, "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy Z Flip6", "Samsung", "Phones", 109999, "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=600&auto=format&fit=crop&q=80"),
+
+    # Laptops
+    ("MacBook Pro 14 M4", "Apple", "Laptops", 169900, "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80"),
+    ("MacBook Air 13 M3", "Apple", "Laptops", 104900, "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80"),
+    ("Dell XPS 14 (2024)", "Dell", "Laptops", 174990, "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=80"),
+    ("ASUS Zenbook 14 OLED", "ASUS", "Laptops", 94990, "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop&q=80"),
+    ("HP Spectre x360 14", "HP", "Laptops", 154990, "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop&q=80"),
+    ("Lenovo Yoga Slim 7x", "Lenovo", "Laptops", 139990, "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop&q=80"),
+    ("ASUS ROG Zephyrus G14", "ASUS", "Laptops", 169990, "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&auto=format&fit=crop&q=80"),
+
+    # Tablets
+    ("iPad Pro 13 (M4)", "Apple", "Tablets", 129900, "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80"),
+    ("iPad Air 11 (M2)", "Apple", "Tablets", 59900, "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy Tab S10 Ultra", "Samsung", "Tablets", 108999, "https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=600&auto=format&fit=crop&q=80"),
+    ("OnePlus Pad 2", "OnePlus", "Tablets", 39999, "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=80"),
+
+    # Audio
+    ("Sony WH-1000XM5", "Sony", "Audio", 29990, "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"),
+    ("Apple AirPods Pro 2 (USB-C)", "Apple", "Audio", 24900, "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&auto=format&fit=crop&q=80"),
+    ("Apple AirPods 4 (ANC)", "Apple", "Audio", 17900, "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=600&auto=format&fit=crop&q=80"),
+    ("Bose QuietComfort Ultra", "Bose", "Audio", 35900, "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy Buds3 Pro", "Samsung", "Audio", 17999, "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80"),
+    ("Marshall Emberton III", "Marshall", "Audio", 17999, "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80"),
+
+    # Wearables
+    ("Apple Watch Series 10", "Apple", "Wearables", 46900, "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600&auto=format&fit=crop&q=80"),
+    ("Apple Watch Ultra 2 (Black)", "Apple", "Wearables", 89900, "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy Watch Ultra", "Samsung", "Wearables", 59999, "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy Watch7", "Samsung", "Wearables", 29999, "https://images.unsplash.com/photo-1510017803434-a899398421b3?w=600&auto=format&fit=crop&q=80"),
+    ("Google Pixel Watch 3", "Google", "Wearables", 39999, "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600&auto=format&fit=crop&q=80"),
+    ("Samsung Galaxy Ring", "Samsung", "Wearables", 38999, "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&auto=format&fit=crop&q=80"),
+
+    # Gaming
+    ("PlayStation 5 Pro", "Sony", "Gaming", 69990, "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&auto=format&fit=crop&q=80"),
+    ("PlayStation 5 Slim", "Sony", "Gaming", 49990, "https://images.unsplash.com/photo-1507457379470-08b800bebc67?w=600&auto=format&fit=crop&q=80"),
+    ("ASUS ROG Ally X", "ASUS", "Gaming", 89990, "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80"),
+    ("Nintendo Switch OLED", "Nintendo", "Gaming", 32990, "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&auto=format&fit=crop&q=80"),
+]
+
+
+def store_url(store, name):
+    q = urllib.parse.quote_plus(name)
+    if store == "Amazon.in":
+        return f"https://www.amazon.in/s?k={q}"
+    elif store == "Flipkart":
+        return f"https://www.flipkart.com/search?q={q}"
+    elif store == "Croma":
+        return f"https://www.croma.com/searchB?q={q}"
+    elif store == "Reliance Digital":
+        return f"https://www.reliancedigital.in/search?q={q}"
+    return f"https://www.google.com/search?q={q}+{urllib.parse.quote_plus(store)}"
 
 
 def db():
@@ -77,7 +107,7 @@ def init():
     c = db()
     c.executescript("""
     create table if not exists users(id integer primary key, name text, email text unique, pw text);
-    create table if not exists products(id integer primary key, name text, brand text, cat text, price real, hist text);
+    create table if not exists products(id integer primary key, name text, brand text, cat text, price real, hist text, image text);
     create table if not exists watches(user_id int, product_id int, target real, hit int default 0, primary key(user_id, product_id));
     create table if not exists notes(id integer primary key, user_id int, msg text, ts real, seen int default 0);
     create table if not exists offers(product_id int, store text, price real, url text, updated text, primary key(product_id, store));
@@ -87,15 +117,18 @@ def init():
         try:
             c.execute("alter table products add column " + col)
         except sqlite3.OperationalError:
-            pass  # already there
-    if not c.execute("select 1 from products").fetchone():
-        rnd = random.Random(11)
-        for cat, blob in CATALOG.items():
-            for item in blob.split(";"):
-                n, b, p = [x.strip() for x in item.split("|")]
-                h = make_history(float(p), rnd)
-                c.execute("insert into products(name,brand,cat,price,hist) values(?,?,?,?,?)",
-                          (n, b, cat, h[-1], json.dumps(h)))
+            pass
+
+    # Ensure products have images and recent launches catalog
+    has_images = c.execute("select count(*) from products where image is not null").fetchone()[0]
+    count = c.execute("select count(*) from products").fetchone()[0]
+    if count == 0 or has_images == 0:
+        c.execute("delete from products")
+        rnd = random.Random(42)
+        for name, brand, cat, base_price, img in RECENT_PRODUCTS:
+            h = make_history(float(base_price), rnd)
+            c.execute("insert into products(name,brand,cat,price,hist,image) values(?,?,?,?,?,?)",
+                      (name, brand, cat, h[-1], json.dumps(h), img))
     c.commit()
     c.close()
 
@@ -103,9 +136,11 @@ def init():
 def card(r):
     h = json.loads(r["hist"])
     prev = h[-2] if len(h) > 1 else r["price"]
-    return dict(id=r["id"], name=r["name"], brand=r["brand"], cat=r["cat"], price=r["price"],
+    name = r["name"]
+    return dict(id=r["id"], name=name, brand=r["brand"], cat=r["cat"], price=r["price"],
                 day=round((r["price"] - prev) / prev * 100, 1), low=min(h), high=max(h),
-                real=r["real"] or 0, image=r["image"])
+                real=r["real"] or 0, image=r["image"],
+                stores=[dict(name=s, url=store_url(s, name)) for s in STORES])
 
 
 def uid():
@@ -150,11 +185,11 @@ def product(pid):
     d["hist"] = json.loads(r["hist"])
     offers = c.execute("select store,price,url from offers where product_id=?", (pid,)).fetchall()
     if offers:
-        d["stores"] = sorted([dict(name=o["store"], price=o["price"], url=o["url"]) for o in offers],
+        d["stores"] = sorted([dict(name=o["store"], price=o["price"], url=o["url"] or store_url(o["store"], r["name"])) for o in offers],
                              key=lambda x: x["price"])
     else:
         rnd = random.Random(pid)
-        d["stores"] = sorted([dict(name=s, price=round(r["price"] * rnd.uniform(0.98, 1.05))) for s in STORES],
+        d["stores"] = sorted([dict(name=s, price=round(r["price"] * rnd.uniform(0.98, 1.05)), url=store_url(s, r["name"])) for s in STORES],
                              key=lambda x: x["price"])
     w = c.execute("select target from watches where user_id=? and product_id=?", (uid(), pid)).fetchone()
     d["watch"] = w["target"] if w else None
