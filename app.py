@@ -501,7 +501,12 @@ def card(r):
 
     stores.sort(key=lambda x: x["price"])
     lowest_price = stores[0]["price"]
+    highest_price = stores[-1]["price"]
     lowest_store = stores[0]["name"]
+    highest_store = stores[-1]["name"]
+    savings = highest_price - lowest_price
+    savings_pct = round((savings / highest_price) * 100, 1) if highest_price > 0 else 0
+
     for s in stores:
         s["is_lowest"] = (s["price"] == lowest_price)
 
@@ -511,6 +516,8 @@ def card(r):
     return dict(id=pid, name=name, brand=r["brand"], cat=cat,
                 price=lowest_price, mrp=base_mrp,
                 lowest_store=lowest_store, lowest_price=lowest_price,
+                highest_store=highest_store, highest_price=highest_price,
+                savings=savings, savings_pct=savings_pct,
                 day=round((lowest_price - prev) / prev * 100, 1), low=min(h) if h else lowest_price,
                 high=max(h) if h else int(base_mrp),
                 real=1, image=r["image"], stores=stores,
