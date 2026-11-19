@@ -573,9 +573,14 @@ main {
 
 .price-container {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 14px;
+}
+
+.price-stack {
+  display: flex;
+  flex-direction: column;
 }
 
 .card-price {
@@ -583,15 +588,26 @@ main {
   font-size: 22px;
   font-weight: 700;
   color: var(--text-main);
+  line-height: 1.1;
+}
+
+.price-lowest-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #16a34a;
+  margin-top: 3px;
+  letter-spacing: 0.02em;
 }
 
 .card-low {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-muted);
   background: var(--surface-alt);
-  padding: 2px 7px;
+  padding: 3px 8px;
   border-radius: 4px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
 }
 
 /* Store Action Links on Cards */
@@ -613,39 +629,108 @@ main {
   justify-content: space-between;
 }
 
+.lowest-pill-mini {
+  font-size: 10px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid #bbf7d0;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
 .store-links-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 7px;
 }
 
 .store-link-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: var(--surface);
   border: 1px solid var(--border);
-  padding: 6px 8px;
+  padding: 7px 9px;
   border-radius: var(--radius-sm);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-main);
   text-decoration: none;
   transition: all 0.15s ease;
-  white-space: nowrap;
+  min-height: 52px;
 }
 
 .store-link-btn:hover {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: var(--surface-alt);
+  border-color: #000000;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.store-btn-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-bottom: 3px;
+}
+
+.store-btn-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.store-btn-price {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Lowest price store link styling */
+.store-link-btn.is-lowest {
+  background: #000000;
+  border-color: #000000;
   color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.store-link-btn.is-lowest .store-btn-name {
+  color: #d4d4d8;
+}
+
+.store-link-btn.is-lowest .store-btn-price {
+  color: #ffffff;
+}
+
+.store-link-btn.is-lowest:hover {
+  background: #18181b;
+  border-color: #18181b;
+  transform: translateY(-1px);
+}
+
+.lowest-badge-pill {
+  background: #22c55e;
+  color: #052e16;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .detail-view-btn {
   width: 100%;
   margin-top: 8px;
-  padding: 7px;
+  padding: 8px;
   background: var(--surface-alt);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -1246,22 +1331,29 @@ function drawGrid(){
         <div class="card-meta">${p.brand} • ${p.cat}</div>
         <div class="card-title">${p.name}</div>
         <div class="price-container">
-          <span class="card-price">${inr(p.price)}</span>
-          <span class="card-low">Low ${inr(p.low)}</span>
+          <div class="price-stack">
+            <span class="card-price">${inr(p.lowest_price || p.price)}</span>
+            <span class="price-lowest-label">Lowest on ${(p.lowest_store||'').replace('.in','')}</span>
+          </div>
+          <span class="card-low" title="52-Week lowest recorded price">52W Low ${inr(p.low)}</span>
         </div>
         <div class="store-actions">
           <div class="store-actions-label">
-            <span>Direct Store Links</span>
-            <span>4 Stores</span>
+            <span>Compare 4 Stores</span>
+            <span class="lowest-pill-mini">Lowest highlighted</span>
           </div>
           <div class="store-links-grid">
             ${p.stores.map(s=>`
-              <a href="${s.url}" target="_blank" rel="noopener" class="store-link-btn" title="Open on ${s.name}">
-                ${s.name.replace('.in','')} ↗
+              <a href="${s.url}" target="_blank" rel="noopener" class="store-link-btn ${s.is_lowest?'is-lowest':''}" title="${s.is_lowest ? 'Lowest price! Open on ' + s.name : 'Open on ' + s.name}">
+                <div class="store-btn-header">
+                  <span class="store-btn-name">${s.name.replace('.in','')}</span>
+                  ${s.is_lowest ? '<span class="lowest-badge-pill">Lowest</span>' : ''}
+                </div>
+                <div class="store-btn-price">${inr(s.price)} ↗</div>
               </a>
             `).join('')}
           </div>
-          <button class="detail-view-btn" onclick="openProduct(${p.id})">Compare Prices & Chart →</button>
+          <button class="detail-view-btn" onclick="openProduct(${p.id})">Price History & Details →</button>
         </div>
       </div>
     </div>
@@ -1327,20 +1419,23 @@ async function openProduct(id,quiet){
           <span style="font-size:11px;font-weight:700;color:var(--text-subtle);text-transform:uppercase;letter-spacing:0.05em">Launched in Last 6 Months</span>
           <h2 class="modal-title">${d.name}</h2>
           <div class="modal-meta">${d.brand} • ${d.cat}</div>
-          <div class="modal-price">${inr(d.price)}</div>
+          <div class="modal-price-row" style="display:flex;align-items:baseline;gap:10px;margin-top:4px">
+            <div class="modal-price">${inr(d.lowest_price || d.price)}</div>
+            <span class="lowest-pill-mini">Lowest on ${(d.lowest_store||'').replace('.in','')}</span>
+          </div>
         </div>
       </div>
 
       <div class="modal-stores-heading">Compare Prices Across 4 Stores (Click to Open):</div>
       <div class="modal-stores-grid">
         ${d.stores.map((s,i)=>`
-          <a href="${s.url}" target="_blank" rel="noopener" class="store-card ${i===0?'best':''}">
+          <a href="${s.url}" target="_blank" rel="noopener" class="store-card ${s.is_lowest||i===0?'best':''}">
             <div class="store-top-line">
-              <span>${s.name}</span>
-              ${i===0?'<span class="best-pill">Lowest</span>':''}
+              <span>${s.name.replace('.in','')}</span>
+              ${s.is_lowest||i===0?'<span class="best-pill">Lowest</span>':''}
             </div>
             <div class="store-card-price">${inr(s.price)}</div>
-            <div class="store-card-cta">Visit Store ↗</div>
+            <div class="store-card-cta">Buy Now ↗</div>
           </a>
         `).join('')}
       </div>

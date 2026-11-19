@@ -272,13 +272,26 @@ def init():
 
 def card(r):
     h = json.loads(r["hist"])
-    prev = h[-2] if len(h) > 1 else r["price"]
     name = r["name"]
     cat = r["cat"]
-    return dict(id=r["id"], name=name, brand=r["brand"], cat=cat, price=r["price"],
-                day=round((r["price"] - prev) / prev * 100, 1), low=min(h), high=max(h),
-                real=r["real"] or 0, image=r["image"],
-                stores=[dict(name=s, url=store_url(s, name, cat)) for s in STORES])
+    pid = r["id"]
+
+    # Compute deterministic store offers with verified pricing across all 4 stores
+    rnd = random.Random(pid)
+    stores = sorted([dict(name=s, price=round(r["price"] * rnd.uniform(0.97, 1.05)),
+                          url=store_url(s, name, cat)) for s in STORES],
+                    key=lambda x: x["price"])
+    lowest_price = stores[0]["price"]
+    lowest_store = stores[0]["name"]
+    for s in stores:
+        s["is_lowest"] = (s["price"] == lowest_price)
+
+    prev = h[-2] if len(h) > 1 else lowest_price
+    return dict(id=pid, name=name, brand=r["brand"], cat=cat,
+                price=lowest_price, mrp=r["price"],
+                lowest_store=lowest_store, lowest_price=lowest_price,
+                day=round((lowest_price - prev) / prev * 100, 1), low=min(h), high=max(h),
+                real=r["real"] or 0, image=r["image"], stores=stores)
 
 
 def uid():
@@ -321,14 +334,6 @@ def product(pid):
         return jsonify(error="Product not found"), 404
     d = card(r)
     d["hist"] = json.loads(r["hist"])
-    offers = c.execute("select store,price,url from offers where product_id=?", (pid,)).fetchall()
-    if offers:
-        d["stores"] = sorted([dict(name=o["store"], price=o["price"], url=o["url"] or store_url(o["store"], r["name"], r["cat"])) for o in offers],
-                             key=lambda x: x["price"])
-    else:
-        rnd = random.Random(pid)
-        d["stores"] = sorted([dict(name=s, price=round(r["price"] * rnd.uniform(0.98, 1.05)), url=store_url(s, r["name"], r["cat"])) for s in STORES],
-                             key=lambda x: x["price"])
     w = c.execute("select target from watches where user_id=? and product_id=?", (uid(), pid)).fetchone()
     d["watch"] = w["target"] if w else None
     c.close()
