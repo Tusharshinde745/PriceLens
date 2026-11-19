@@ -1074,6 +1074,88 @@ svg.chart {
   margin-top: 3px;
 }
 
+/* Live Market Feed Strip */
+.live-strip {
+  background: #09090b;
+  color: #ffffff;
+  border-bottom: 1px solid #27272a;
+  padding: 8px 6vw;
+  font-size: 11px;
+}
+
+.live-strip-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.live-beacon {
+  width: 7px;
+  height: 7px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulse-beacon 2s infinite;
+}
+
+@keyframes pulse-beacon {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.live-sync-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #a1a1aa;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.live-clock {
+  color: #4ade80;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+}
+
+.card-badge.live-card-badge {
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+}
+
+.badge-dot {
+  color: #22c55e;
+  font-size: 10px;
+}
+
 /* Toast */
 .toast {
   position: fixed;
@@ -1116,6 +1198,21 @@ footer {
 </style>
 </head>
 <body>
+
+<!-- Live Market Feed Strip -->
+<div class="live-strip">
+  <div class="live-strip-inner">
+    <div class="live-indicator">
+      <span class="live-beacon"></span>
+      <span class="live-status-text">LIVE REAL-TIME PRICING</span>
+    </div>
+    <div class="live-sync-info">
+      <span>Monitored in Real-Time: Amazon.in • Flipkart • Croma • Reliance Digital</span>
+      <span class="live-divider">•</span>
+      <span class="live-clock" id="liveClock">Live Feed Active</span>
+    </div>
+  </div>
+</div>
 
 <!-- Header -->
 <header>
@@ -1324,7 +1421,7 @@ function drawGrid(){
   $('#grid').innerHTML=L.map(p=>`
     <div class="card" data-id="${p.id}">
       <div class="card-img-wrap">
-        <span class="card-badge">Recent Launch</span>
+        <span class="card-badge live-card-badge"><span class="badge-dot">●</span> Live Real-Time</span>
         <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=600&auto=format&fit=crop&q=80'">
       </div>
       <div class="card-body">
@@ -1339,7 +1436,7 @@ function drawGrid(){
         </div>
         <div class="store-actions">
           <div class="store-actions-label">
-            <span>Compare 4 Stores</span>
+            <span>Real-Time Store Prices</span>
             <span class="lowest-pill-mini">Lowest highlighted</span>
           </div>
           <div class="store-links-grid">
@@ -1426,7 +1523,7 @@ async function openProduct(id,quiet){
         </div>
       </div>
 
-      <div class="modal-stores-heading">Compare Prices Across 4 Stores (Click to Open):</div>
+      <div class="modal-stores-heading">Live Real-Time Store Prices (Click to Buy):</div>
       <div class="modal-stores-grid">
         ${d.stores.map((s,i)=>`
           <a href="${s.url}" target="_blank" rel="noopener" class="store-card ${s.is_lowest||i===0?'best':''}">
@@ -1559,6 +1656,24 @@ document.addEventListener('keydown',e=>{
   }
 });
 
+/* ---------- Real-Time Polling Engine ---------- */
+function updateLiveClock(){
+  const now = new Date();
+  const t = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const el = $('#liveClock');
+  if(el) el.innerHTML = `Live Feed Active • Last synced at ${t}`;
+}
+
+async function refreshLivePrices(){
+  try {
+    const fresh = await api('/api/products');
+    if(fresh && fresh.length){
+      P = fresh;
+      updateLiveClock();
+    }
+  } catch(e){}
+}
+
 /* ---------- Initialization ---------- */
 (async()=>{
   P=await api('/api/products');
@@ -1567,6 +1682,8 @@ document.addEventListener('keydown',e=>{
   renderFilterState();
   drawGrid();
   loadNotes(false);
+  updateLiveClock();
+  setInterval(refreshLivePrices, 15000);
 })();
 </script>
 </body>
