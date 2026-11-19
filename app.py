@@ -1,6 +1,6 @@
 import json, os, random, sqlite3, threading, time, urllib.parse
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request, session, send_from_directory
+from flask import Flask, jsonify, request, session, send_from_directory, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 
 load_dotenv()
@@ -96,20 +96,20 @@ RECENT_PRODUCTS = [
 def store_url(store, name, cat=""):
     q = urllib.parse.quote_plus(name)
     if store == "Amazon.in":
-        return f"https://www.amazon.in/s?k={q}"
+        return f"https://duckduckgo.com/?q=%21ducky+site%3Aamazon.in%2Fdp%2F+{q}"
     elif store == "Flipkart":
-        return f"https://www.flipkart.com/search?q={q}"
+        return f"https://duckduckgo.com/?q=%21ducky+site%3Aflipkart.com%2Fp%2F+{q}"
     elif store == "Croma":
         if cat in ("Apparel", "Cosmetic"):
-            return f"https://www.tatacliq.com/search/?searchCategory=all&text={q}"
-        return f"https://www.croma.com/search/?text={q}"
+            return f"https://duckduckgo.com/?q=%21ducky+site%3Atatacliq.com%2F+{q}"
+        return f"https://duckduckgo.com/?q=%21ducky+site%3Acroma.com%2Fp%2F+{q}"
     elif store == "Reliance Digital":
         if cat == "Apparel":
-            return f"https://www.ajio.com/search/?text={q}"
+            return f"https://duckduckgo.com/?q=%21ducky+site%3Aajio.com%2F+{q}"
         elif cat == "Cosmetic":
-            return f"https://www.tirabeauty.com/search?q={q}"
-        return f"https://www.reliancedigital.in/search?q={q}:relevance"
-    return f"https://www.google.com/search?q={q}+{urllib.parse.quote_plus(store)}"
+            return f"https://duckduckgo.com/?q=%21ducky+site%3Atirabeauty.com%2F+{q}"
+        return f"https://duckduckgo.com/?q=%21ducky+site%3Areliancedigital.in%2Fp%2F+{q}"
+    return f"https://duckduckgo.com/?q=%21ducky+{q}+{urllib.parse.quote_plus(store)}"
 
 
 def db():
@@ -229,6 +229,27 @@ def product(pid):
     d["watch"] = w["target"] if w else None
     c.close()
     return jsonify(d)
+
+
+@app.get("/redirect/<store_name>/<int:pid>")
+def direct_redirect(store_name, pid):
+    c = db()
+    r = c.execute("select name, cat from products where id=?", (pid,)).fetchone()
+    c.close()
+    if not r:
+        return "Product not found", 404
+    name = r["name"]
+    cat = r["cat"]
+    sname = "Amazon.in"
+    sl = store_name.lower()
+    if "croma" in sl:
+        sname = "Croma"
+    elif "reliance" in sl:
+        sname = "Reliance Digital"
+    elif "flipkart" in sl:
+        sname = "Flipkart"
+    target = store_url(sname, name, cat)
+    return redirect(target)
 
 
 @app.post("/api/register")
