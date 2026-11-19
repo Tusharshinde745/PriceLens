@@ -62,18 +62,52 @@ RECENT_PRODUCTS = [
     ("PlayStation 5 Slim", "Sony", "Gaming", 49990, "https://images.unsplash.com/photo-1507457379470-08b800bebc67?w=600&auto=format&fit=crop&q=80"),
     ("ASUS ROG Ally X", "ASUS", "Gaming", 89990, "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80"),
     ("Nintendo Switch OLED", "Nintendo", "Gaming", 32990, "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&auto=format&fit=crop&q=80"),
+
+    # Home (Smart Home & Modern Appliances launched in the last 6 months)
+    ("Dyson V15s Detect Submarine", "Dyson", "Home", 62900, "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=600&auto=format&fit=crop&q=80"),
+    ("Roborock Q Revo MaxV Robot Vacuum", "Roborock", "Home", 79999, "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&auto=format&fit=crop&q=80"),
+    ("Philips Airfryer XXL Dual Basket", "Philips", "Home", 18995, "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600&auto=format&fit=crop&q=80"),
+    ("Xiaomi Smart Air Purifier 4 Pro", "Xiaomi", "Home", 14999, "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&auto=format&fit=crop&q=80"),
+    ("Amazon Echo Hub 8-inch Display", "Amazon", "Home", 18999, "https://images.unsplash.com/photo-1543512214-318c7553f230?w=600&auto=format&fit=crop&q=80"),
+    ("Dyson Purifier Hot+Cool Gen1", "Dyson", "Home", 39900, "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop&q=80"),
+    ("Morphy Richards Smart OTG 40L", "Morphy Richards", "Home", 13499, "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=600&auto=format&fit=crop&q=80"),
+
+    # Cosmetic (Luxury Grooming, Skincare & Beauty Tech launched in the last 6 months)
+    ("Dyson Airwrap Multi-Styler i.d.", "Dyson", "Cosmetic", 49900, "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80"),
+    ("Dyson Supersonic Nural Hair Dryer", "Dyson", "Cosmetic", 41900, "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=600&auto=format&fit=crop&q=80"),
+    ("Philips Sonicare DiamondClean 9000", "Philips", "Cosmetic", 24995, "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&auto=format&fit=crop&q=80"),
+    ("Braun Series 9 Pro+ Shaver", "Braun", "Cosmetic", 29999, "https://images.unsplash.com/photo-1621607512214-68297480165e?w=600&auto=format&fit=crop&q=80"),
+    ("Estee Lauder Advanced Night Repair (2024)", "Estee Lauder", "Cosmetic", 9500, "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&auto=format&fit=crop&q=80"),
+    ("MAC Studio Fix Fluid SPF 25 (2024)", "MAC", "Cosmetic", 3900, "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&auto=format&fit=crop&q=80"),
+    ("Forest Essentials Tejasvi Facial Emulsion", "Forest Essentials", "Cosmetic", 3850, "https://images.unsplash.com/photo-1608248597359-00f9d95c52c6?w=600&auto=format&fit=crop&q=80"),
+    ("Laneige Bouncy & Firm Sleeping Mask", "Laneige", "Cosmetic", 2450, "https://images.unsplash.com/photo-1567928815104-b7980ee5032e?w=600&auto=format&fit=crop&q=80"),
+
+    # Apparel (Trending Footwear, Outerwear & Apparel launched in the last 6 months)
+    ("Nike Pegasus 41 Running Shoes", "Nike", "Apparel", 11895, "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80"),
+    ("Adidas Ultraboost 5X", "Adidas", "Apparel", 17999, "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=600&auto=format&fit=crop&q=80"),
+    ("Puma Nitro Elite 3", "Puma", "Apparel", 16999, "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600&auto=format&fit=crop&q=80"),
+    ("Levi's 501 90s Vintage Jeans (2024 Edition)", "Levi's", "Apparel", 4999, "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&auto=format&fit=crop&q=80"),
+    ("Under Armour HOVR Phantom 3 SE", "Under Armour", "Apparel", 13999, "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&auto=format&fit=crop&q=80"),
+    ("Zara Minimalist Wool Blend Trench Coat", "Zara", "Apparel", 9990, "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&auto=format&fit=crop&q=80"),
+    ("Uniqlo Ultra Light Seamless Down Parka", "Uniqlo", "Apparel", 7990, "https://images.unsplash.com/photo-1544441893-675973e31985?w=600&auto=format&fit=crop&q=80"),
 ]
 
 
-def store_url(store, name):
+def store_url(store, name, cat=""):
     q = urllib.parse.quote_plus(name)
     if store == "Amazon.in":
         return f"https://www.amazon.in/s?k={q}"
     elif store == "Flipkart":
         return f"https://www.flipkart.com/search?q={q}"
     elif store == "Croma":
+        if cat in ("Apparel", "Cosmetic"):
+            return f"https://www.tatacliq.com/search/?searchCategory=all&text={q}"
         return f"https://www.croma.com/search/?text={q}"
     elif store == "Reliance Digital":
+        if cat == "Apparel":
+            return f"https://www.ajio.com/search/?text={q}"
+        elif cat == "Cosmetic":
+            return f"https://www.tirabeauty.com/search?q={q}"
         return f"https://www.reliancedigital.in/search?q={q}:relevance"
     return f"https://www.google.com/search?q={q}+{urllib.parse.quote_plus(store)}"
 
@@ -119,10 +153,9 @@ def init():
         except sqlite3.OperationalError:
             pass
 
-    # Ensure products have images and recent launches catalog
-    has_images = c.execute("select count(*) from products where image is not null").fetchone()[0]
-    count = c.execute("select count(*) from products").fetchone()[0]
-    if count == 0 or has_images == 0:
+    # Ensure products have images and recent launches catalog across all categories
+    cats = [row[0] for row in c.execute("select distinct cat from products").fetchall()]
+    if "Apparel" not in cats or "Home" not in cats or "Cosmetic" not in cats:
         c.execute("delete from products")
         rnd = random.Random(42)
         for name, brand, cat, base_price, img in RECENT_PRODUCTS:
@@ -137,10 +170,11 @@ def card(r):
     h = json.loads(r["hist"])
     prev = h[-2] if len(h) > 1 else r["price"]
     name = r["name"]
-    return dict(id=r["id"], name=name, brand=r["brand"], cat=r["cat"], price=r["price"],
+    cat = r["cat"]
+    return dict(id=r["id"], name=name, brand=r["brand"], cat=cat, price=r["price"],
                 day=round((r["price"] - prev) / prev * 100, 1), low=min(h), high=max(h),
                 real=r["real"] or 0, image=r["image"],
-                stores=[dict(name=s, url=store_url(s, name)) for s in STORES])
+                stores=[dict(name=s, url=store_url(s, name, cat)) for s in STORES])
 
 
 def uid():
@@ -185,11 +219,11 @@ def product(pid):
     d["hist"] = json.loads(r["hist"])
     offers = c.execute("select store,price,url from offers where product_id=?", (pid,)).fetchall()
     if offers:
-        d["stores"] = sorted([dict(name=o["store"], price=o["price"], url=o["url"] or store_url(o["store"], r["name"])) for o in offers],
+        d["stores"] = sorted([dict(name=o["store"], price=o["price"], url=o["url"] or store_url(o["store"], r["name"], r["cat"])) for o in offers],
                              key=lambda x: x["price"])
     else:
         rnd = random.Random(pid)
-        d["stores"] = sorted([dict(name=s, price=round(r["price"] * rnd.uniform(0.98, 1.05)), url=store_url(s, r["name"])) for s in STORES],
+        d["stores"] = sorted([dict(name=s, price=round(r["price"] * rnd.uniform(0.98, 1.05)), url=store_url(s, r["name"], r["cat"])) for s in STORES],
                              key=lambda x: x["price"])
     w = c.execute("select target from watches where user_id=? and product_id=?", (uid(), pid)).fetchone()
     d["watch"] = w["target"] if w else None
