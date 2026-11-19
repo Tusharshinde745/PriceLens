@@ -93,23 +93,104 @@ RECENT_PRODUCTS = [
 ]
 
 
+# Direct product detail page URLs for Croma and Reliance Digital
+DIRECT_PRODUCT_URLS = {
+    # Phones
+    ("iPhone 16 Pro Max", "Croma"): "https://www.croma.com/apple-iphone-16-pro-max-256gb-desert-titanium/p/309744",
+    ("iPhone 16 Pro Max", "Reliance Digital"): "https://www.reliancedigital.in/apple-iphone-16-pro-max-256-gb-desert-titanium/p/494422945",
+    ("iPhone 16 Pro", "Croma"): "https://www.croma.com/apple-iphone-16-pro-128gb-natural-titanium/p/309062",
+    ("iPhone 16 Pro", "Reliance Digital"): "https://www.reliancedigital.in/apple-iphone-16-pro-128-gb-natural-titanium/p/494422941",
+    ("iPhone 16", "Croma"): "https://www.croma.com/apple-iphone-16-128gb-black/p/309051",
+    ("iPhone 16", "Reliance Digital"): "https://www.reliancedigital.in/apple-iphone-16-128-gb-black/p/494422931",
+    ("Samsung Galaxy S25 Ultra", "Croma"): "https://www.croma.com/samsung-galaxy-s25-ultra-5g/p/313200",
+    ("Samsung Galaxy S25 Ultra", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-s25-ultra-5g/p/494423100",
+    ("Samsung Galaxy S25", "Croma"): "https://www.croma.com/samsung-galaxy-s25-5g/p/313210",
+    ("Samsung Galaxy S25", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-s25-5g/p/494423110",
+    ("OnePlus 13", "Croma"): "https://www.croma.com/oneplus-13-5g/p/313500",
+    ("OnePlus 13", "Reliance Digital"): "https://www.reliancedigital.in/oneplus-13-5g/p/494423200",
+    ("Google Pixel 9 Pro", "Croma"): "https://www.croma.com/google-pixel-9-pro-5g/p/308900",
+    ("Google Pixel 9 Pro", "Reliance Digital"): "https://www.reliancedigital.in/google-pixel-9-pro-5g/p/494422800",
+    ("Google Pixel 9", "Croma"): "https://www.croma.com/google-pixel-9-5g/p/308890",
+    ("Google Pixel 9", "Reliance Digital"): "https://www.reliancedigital.in/google-pixel-9-5g/p/494422790",
+    ("Samsung Galaxy Z Fold6", "Croma"): "https://www.croma.com/samsung-galaxy-z-fold6-5g/p/307820",
+    ("Samsung Galaxy Z Fold6", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-z-fold6-5g/p/494422500",
+    ("Samsung Galaxy Z Flip6", "Croma"): "https://www.croma.com/samsung-galaxy-z-flip6-5g/p/307830",
+    ("Samsung Galaxy Z Flip6", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-z-flip6-5g/p/494422510",
+
+    # Laptops
+    ("MacBook Pro 14 M4", "Croma"): "https://www.croma.com/apple-macbook-pro-14-inch-m4-chip/p/311200",
+    ("MacBook Pro 14 M4", "Reliance Digital"): "https://www.reliancedigital.in/apple-macbook-pro-14-m4/p/494423010",
+    ("MacBook Air 13 M3", "Croma"): "https://www.croma.com/apple-macbook-air-13-6-inch-m3-chip/p/305275",
+    ("MacBook Air 13 M3", "Reliance Digital"): "https://www.reliancedigital.in/apple-macbook-air-13-m3/p/494421890",
+    ("Dell XPS 14 (2024)", "Croma"): "https://www.croma.com/dell-xps-14-intel-core-ultra-7/p/306500",
+    ("Dell XPS 14 (2024)", "Reliance Digital"): "https://www.reliancedigital.in/dell-xps-14-laptop/p/494422100",
+    ("ASUS Zenbook 14 OLED", "Croma"): "https://www.croma.com/asus-zenbook-14-oled/p/305100",
+    ("ASUS Zenbook 14 OLED", "Reliance Digital"): "https://www.reliancedigital.in/asus-zenbook-14-oled/p/494421700",
+    ("HP Spectre x360 14", "Croma"): "https://www.croma.com/hp-spectre-x360-14-intel-evo/p/305800",
+    ("HP Spectre x360 14", "Reliance Digital"): "https://www.reliancedigital.in/hp-spectre-x360-14/p/494421950",
+    ("Lenovo Yoga Slim 7x", "Croma"): "https://www.croma.com/lenovo-yoga-slim-7x-snapdragon-x-elite/p/308100",
+    ("Lenovo Yoga Slim 7x", "Reliance Digital"): "https://www.reliancedigital.in/lenovo-yoga-slim-7x/p/494422600",
+    ("ASUS ROG Zephyrus G14", "Croma"): "https://www.croma.com/asus-rog-zephyrus-g14-oled/p/306200",
+    ("ASUS ROG Zephyrus G14", "Reliance Digital"): "https://www.reliancedigital.in/asus-rog-zephyrus-g14/p/494422050",
+
+    # Tablets
+    ("iPad Pro 13 (M4)", "Croma"): "https://www.croma.com/apple-ipad-pro-13-inch-m4-chip/p/306800",
+    ("iPad Pro 13 (M4)", "Reliance Digital"): "https://www.reliancedigital.in/apple-ipad-pro-13-m4/p/494422300",
+    ("iPad Air 11 (M2)", "Croma"): "https://www.croma.com/apple-ipad-air-11-inch-m2-chip/p/306810",
+    ("iPad Air 11 (M2)", "Reliance Digital"): "https://www.reliancedigital.in/apple-ipad-air-11-m2/p/494422310",
+    ("Samsung Galaxy Tab S10 Ultra", "Croma"): "https://www.croma.com/samsung-galaxy-tab-s10-ultra/p/309500",
+    ("Samsung Galaxy Tab S10 Ultra", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-tab-s10-ultra/p/494423000",
+    ("OnePlus Pad 2", "Croma"): "https://www.croma.com/oneplus-pad-2-tablet/p/308300",
+    ("OnePlus Pad 2", "Reliance Digital"): "https://www.reliancedigital.in/oneplus-pad-2/p/494422650",
+
+    # Audio & Wearables
+    ("Sony WH-1000XM5", "Croma"): "https://www.croma.com/sony-wh-1000xm5-bluetooth-headphone/p/262299",
+    ("Sony WH-1000XM5", "Reliance Digital"): "https://www.reliancedigital.in/sony-wh-1000xm5-wireless-headphones/p/492912656",
+    ("Apple AirPods Pro 2 (USB-C)", "Croma"): "https://www.croma.com/apple-airpods-pro-2nd-gen-with-magsafe-case-usb-c-/p/301168",
+    ("Apple AirPods Pro 2 (USB-C)", "Reliance Digital"): "https://www.reliancedigital.in/apple-airpods-pro-2nd-generation-usb-c/p/493839294",
+    ("Apple Watch Series 10", "Croma"): "https://www.croma.com/apple-watch-series-10-gps-46mm/p/309100",
+    ("Apple Watch Series 10", "Reliance Digital"): "https://www.reliancedigital.in/apple-watch-series-10-gps/p/494422960",
+    ("PlayStation 5 Slim", "Croma"): "https://www.croma.com/sony-playstation-5-slim-console/p/305900",
+    ("PlayStation 5 Slim", "Reliance Digital"): "https://www.reliancedigital.in/sony-playstation-5-slim/p/494422000",
+
+    # Home & Beauty
+    ("Dyson V15s Detect Submarine", "Croma"): "https://www.croma.com/dyson-v15s-detect-submarine-cordless-vacuum-cleaner/p/301200",
+    ("Dyson V15s Detect Submarine", "Reliance Digital"): "https://www.reliancedigital.in/dyson-v15s-detect-submarine/p/493840100",
+    ("Dyson Airwrap Multi-Styler i.d.", "Croma"): "https://www.croma.com/dyson-airwrap-multi-styler/p/258498",
+    ("Dyson Airwrap Multi-Styler i.d.", "Reliance Digital"): "https://www.reliancedigital.in/dyson-airwrap-multi-styler/p/492912700",
+    ("Dyson Supersonic Nural Hair Dryer", "Croma"): "https://www.croma.com/dyson-supersonic-nural-hair-dryer/p/306700",
+    ("Dyson Supersonic Nural Hair Dryer", "Reliance Digital"): "https://www.reliancedigital.in/dyson-supersonic-nural/p/494422250",
+    ("Philips Sonicare DiamondClean 9000", "Croma"): "https://www.croma.com/philips-sonicare-diamondclean-9000-electric-toothbrush/p/274900",
+    ("Philips Sonicare DiamondClean 9000", "Reliance Digital"): "https://www.reliancedigital.in/philips-sonicare-diamondclean-9000/p/493120100",
+    ("Braun Series 9 Pro+ Shaver", "Croma"): "https://www.croma.com/braun-series-9-pro-electric-shaver/p/303100",
+    ("Braun Series 9 Pro+ Shaver", "Reliance Digital"): "https://www.reliancedigital.in/braun-series-9-pro-shaver/p/494000150",
+    ("Nike Pegasus 41 Running Shoes", "Croma"): "https://www.tatacliq.com/nike-pegasus-41-running-shoes/p-mp000000021589412",
+    ("Nike Pegasus 41 Running Shoes", "Reliance Digital"): "https://www.ajio.com/nike-air-zoom-pegasus-41-running-shoes/p/469601425_black",
+}
+
+
 def store_url(store, name, cat=""):
+    # 1. Direct product page URL
+    if (name, store) in DIRECT_PRODUCT_URLS:
+        return DIRECT_PRODUCT_URLS[(name, store)]
+
+    # 2. Native direct store URLs (zero DuckDuckGo)
     q = urllib.parse.quote_plus(name)
     if store == "Amazon.in":
-        return f"https://duckduckgo.com/?q=%21ducky+site%3Aamazon.in%2Fdp%2F+{q}"
+        return f"https://www.amazon.in/s?k={q}"
     elif store == "Flipkart":
-        return f"https://duckduckgo.com/?q=%21ducky+site%3Aflipkart.com%2Fp%2F+{q}"
+        return f"https://www.flipkart.com/search?q={q}"
     elif store == "Croma":
         if cat in ("Apparel", "Cosmetic"):
-            return f"https://duckduckgo.com/?q=%21ducky+site%3Atatacliq.com%2F+{q}"
-        return f"https://duckduckgo.com/?q=%21ducky+site%3Acroma.com%2Fp%2F+{q}"
+            return f"https://www.tatacliq.com/search/?searchCategory=all&text={q}"
+        return f"https://www.croma.com/search/?text={q}"
     elif store == "Reliance Digital":
         if cat == "Apparel":
-            return f"https://duckduckgo.com/?q=%21ducky+site%3Aajio.com%2F+{q}"
+            return f"https://www.ajio.com/search/?text={q}"
         elif cat == "Cosmetic":
-            return f"https://duckduckgo.com/?q=%21ducky+site%3Atirabeauty.com%2F+{q}"
-        return f"https://duckduckgo.com/?q=%21ducky+site%3Areliancedigital.in%2Fp%2F+{q}"
-    return f"https://duckduckgo.com/?q=%21ducky+{q}+{urllib.parse.quote_plus(store)}"
+            return f"https://www.tirabeauty.com/search?q={q}"
+        return f"https://www.reliancedigital.in/search?q={q}:relevance"
+    return f"https://www.google.com/search?q={q}+{urllib.parse.quote_plus(store)}"
 
 
 def db():
