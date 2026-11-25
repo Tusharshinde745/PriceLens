@@ -14,6 +14,7 @@ from data import (
     STORES,
     RECENT_PRODUCTS,
     REAL_STORE_PRICES,
+    stores_for_product,
     store_url,
 )
 
@@ -68,7 +69,8 @@ def init():
         c.execute("delete from products")
         rnd = random.Random(42)
         for name, brand, cat, base_price, img in RECENT_PRODUCTS:
-            lowest = min(REAL_STORE_PRICES.get((name, s), base_price) for s in STORES)
+            p_stores = stores_for_product(name, cat)
+            lowest = min(REAL_STORE_PRICES.get((name, s), base_price) for s in p_stores)
             h = make_history(float(lowest), rnd)
             h[-1] = lowest
             c.execute("insert into products(name,brand,cat,price,hist,image,real) values(?,?,?,?,?,?,1)",
@@ -87,7 +89,7 @@ def card(r, offers_map=None):
 
     # Real-time prices across all 4 monitored stores
     stores = []
-    for s in STORES:
+    for s in stores_for_product(name, cat):
         offer = live_offers.get(s)
         p = int(round(offer["price"])) if offer and offer["price"] else REAL_STORE_PRICES.get((name, s), int(base_mrp))
         u = offer["url"] if offer and offer.get("url") else store_url(s, name, cat)

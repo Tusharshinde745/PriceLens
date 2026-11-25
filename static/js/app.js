@@ -124,7 +124,7 @@ function drawGrid(){
           <div class="store-links-grid">
             ${p.stores.map(s=>{
               const sk=s.name.toLowerCase();
-              const dotClass=sk.includes('amazon')?'store-dot-amazon':sk.includes('flipkart')?'store-dot-flipkart':sk.includes('croma')?'store-dot-croma':'store-dot-reliance';
+              const dotClass=sk.includes('amazon')?'store-dot-amazon':sk.includes('flipkart')?'store-dot-flipkart':sk.includes('croma')?'store-dot-croma':sk.includes('nykaa')?'store-dot-nykaa':sk.includes('tira')?'store-dot-tira':'store-dot-reliance';
               return `
               <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="store-link-btn ${s.is_lowest?'is-lowest':''}" title="${s.is_lowest?'Lowest price — Buy on '+s.name:'Buy on '+s.name}">
                 <div class="store-btn-header">

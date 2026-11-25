@@ -778,6 +778,8 @@ main {
 .store-dot-flipkart { background: #2874f0; }
 .store-dot-croma { background: var(--green); }
 .store-dot-reliance { background: #e63946; }
+.store-dot-nykaa { background: #fc2779; }
+.store-dot-tira { background: #ff5a5f; }
 
 /* ══════════════ DETAIL MODAL ══════════════ */
 .modal-scrim {

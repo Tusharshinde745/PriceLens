@@ -1,6 +1,24 @@
 import urllib.parse
 
 STORES = ["Amazon.in", "Flipkart", "Croma", "Reliance Digital"]
+COSMETIC_STORES = ["Nykaa", "Tira", "Amazon.in", "Flipkart"]
+
+BEAUTY_COSMETIC_NAMES = {
+    "Maybelline Lash Sensational Sky High Mascara",
+    "L'Oreal Paris Glycolic Bright 1.0% Serum",
+    "Minimalist 10% Niacinamide Face Serum",
+    "Cetaphil Gentle Skin Cleanser 250ml",
+    "Garnier Micellar Cleansing Water 400ml",
+    "COSRX Advanced Snail 96 Mucin Power Essence",
+    "Laneige Lip Sleeping Mask Berry",
+    "MAC MACximal Silky Matte Lipstick Ruby Woo",
+}
+
+
+def stores_for_product(name, cat=""):
+    if name in BEAUTY_COSMETIC_NAMES:
+        return COSMETIC_STORES
+    return STORES
 
 # Hand-curated recent releases (launched in the last 6 months), verified available across ALL 4 websites:
 # Amazon.in, Flipkart, Croma, and Reliance Digital.
@@ -65,6 +83,16 @@ RECENT_PRODUCTS = [
     ("Braun Series 9 Pro+ Shaver", "Braun", "Cosmetic", 29999, "https://images.unsplash.com/photo-1621607512214-68297480165e?w=600&auto=format&fit=crop&q=80"),
     ("Philips Series 9000 Prestige Beard Trimmer", "Philips", "Cosmetic", 16995, "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&auto=format&fit=crop&q=80"),
     ("Havells Cordless Hair Straightener & Multi-Styler", "Havells", "Cosmetic", 3999, "https://images.unsplash.com/photo-1522337094346-290f26a121f0?w=600&auto=format&fit=crop&q=80"),
+
+    # Beauty & Skincare Cosmetics (Verified available across Nykaa, Tira, Amazon.in, and Flipkart)
+    ("Maybelline Lash Sensational Sky High Mascara", "Maybelline", "Cosmetic", 799, "https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?w=600&auto=format&fit=crop&q=80"),
+    ("L'Oreal Paris Glycolic Bright 1.0% Serum", "L'Oreal Paris", "Cosmetic", 799, "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&auto=format&fit=crop&q=80"),
+    ("Minimalist 10% Niacinamide Face Serum", "Minimalist", "Cosmetic", 599, "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=600&auto=format&fit=crop&q=80"),
+    ("Cetaphil Gentle Skin Cleanser 250ml", "Cetaphil", "Cosmetic", 735, "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&auto=format&fit=crop&q=80"),
+    ("Garnier Micellar Cleansing Water 400ml", "Garnier", "Cosmetic", 531, "https://images.unsplash.com/photo-1570194065650-d99fb4b38b15?w=600&auto=format&fit=crop&q=80"),
+    ("COSRX Advanced Snail 96 Mucin Power Essence", "COSRX", "Cosmetic", 1450, "https://images.unsplash.com/photo-1617897903246-719242758050?w=600&auto=format&fit=crop&q=80"),
+    ("Laneige Lip Sleeping Mask Berry", "Laneige", "Cosmetic", 1499, "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&auto=format&fit=crop&q=80"),
+    ("MAC MACximal Silky Matte Lipstick Ruby Woo", "MAC", "Cosmetic", 2550, "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600&auto=format&fit=crop&q=80"),
 ]
 
 
@@ -322,10 +350,48 @@ REAL_STORE_PRICES = {
     ('Havells Cordless Hair Straightener & Multi-Styler', 'Flipkart'): 2899,
     ('Havells Cordless Hair Straightener & Multi-Styler', 'Croma'): 3999,
     ('Havells Cordless Hair Straightener & Multi-Styler', 'Reliance Digital'): 3999,
+    ('Maybelline Lash Sensational Sky High Mascara', 'Nykaa'): 746,
+    ('Maybelline Lash Sensational Sky High Mascara', 'Tira'): 572,
+    ('Maybelline Lash Sensational Sky High Mascara', 'Amazon.in'): 599,
+    ('Maybelline Lash Sensational Sky High Mascara', 'Flipkart'): 799,
+    ("L'Oreal Paris Glycolic Bright 1.0% Serum", 'Nykaa'): 799,
+    ("L'Oreal Paris Glycolic Bright 1.0% Serum", 'Tira'): 524,
+    ("L'Oreal Paris Glycolic Bright 1.0% Serum", 'Amazon.in'): 549,
+    ("L'Oreal Paris Glycolic Bright 1.0% Serum", 'Flipkart'): 559,
+    ('Minimalist 10% Niacinamide Face Serum', 'Nykaa'): 449,
+    ('Minimalist 10% Niacinamide Face Serum', 'Tira'): 599,
+    ('Minimalist 10% Niacinamide Face Serum', 'Amazon.in'): 599,
+    ('Minimalist 10% Niacinamide Face Serum', 'Flipkart'): 499,
+    ('Cetaphil Gentle Skin Cleanser 250ml', 'Nykaa'): 735,
+    ('Cetaphil Gentle Skin Cleanser 250ml', 'Tira'): 735,
+    ('Cetaphil Gentle Skin Cleanser 250ml', 'Amazon.in'): 715,
+    ('Cetaphil Gentle Skin Cleanser 250ml', 'Flipkart'): 729,
+    ('Garnier Micellar Cleansing Water 400ml', 'Nykaa'): 531,
+    ('Garnier Micellar Cleansing Water 400ml', 'Tira'): 391,
+    ('Garnier Micellar Cleansing Water 400ml', 'Amazon.in'): 399,
+    ('Garnier Micellar Cleansing Water 400ml', 'Flipkart'): 359,
+    ('COSRX Advanced Snail 96 Mucin Power Essence', 'Nykaa'): 1341,
+    ('COSRX Advanced Snail 96 Mucin Power Essence', 'Tira'): 1305,
+    ('COSRX Advanced Snail 96 Mucin Power Essence', 'Amazon.in'): 1320,
+    ('COSRX Advanced Snail 96 Mucin Power Essence', 'Flipkart'): 1359,
+    ('Laneige Lip Sleeping Mask Berry', 'Nykaa'): 1420,
+    ('Laneige Lip Sleeping Mask Berry', 'Tira'): 1207,
+    ('Laneige Lip Sleeping Mask Berry', 'Amazon.in'): 1136,
+    ('Laneige Lip Sleeping Mask Berry', 'Flipkart'): 1499,
+    ('MAC MACximal Silky Matte Lipstick Ruby Woo', 'Nykaa'): 2550,
+    ('MAC MACximal Silky Matte Lipstick Ruby Woo', 'Tira'): 2550,
+    ('MAC MACximal Silky Matte Lipstick Ruby Woo', 'Amazon.in'): 2550,
+    ('MAC MACximal Silky Matte Lipstick Ruby Woo', 'Flipkart'): 2550,
 }
 
 
 AMAZON_DIRECT = {
+    'Maybelline Lash Sensational Sky High Mascara': 'https://www.amazon.in/dp/B08H46YXYH',
+    "L'Oreal Paris Glycolic Bright 1.0% Serum": 'https://www.amazon.in/dp/B0B9QYVGT3',
+    'Minimalist 10% Niacinamide Face Serum': 'https://www.amazon.in/dp/B08F9MF314',
+    'Cetaphil Gentle Skin Cleanser 250ml': 'https://www.amazon.in/dp/B01CCGW4LC',
+    'Garnier Micellar Cleansing Water 400ml': 'https://www.amazon.in/dp/B071CDDG3H',
+    'COSRX Advanced Snail 96 Mucin Power Essence': 'https://www.amazon.in/dp/B07N3SMBRM',
     'ASUS ROG Ally X': 'https://www.amazon.in/dp/B0D9BLFKJQ',
     'ASUS Zenbook 14 OLED': 'https://www.amazon.in/dp/B0F9YG6D4C',
     'Apple AirPods 4 (ANC)': 'https://www.amazon.in/dp/B0DGJ6G1XG',
@@ -398,6 +464,36 @@ FLIPKART_DIRECT = {
     'Xiaomi Smart Air Purifier 4 Pro': 'https://www.flipkart.com/mijia-xiaomi-smart-air-purifier-4-compact-100-sq-ft-6-mins-3stage-highefficiencyfilter230-m3-hr-cadr-covers-400-sq-ft-app-voice-control20db-lownoiserealtime-filter-usage-room-white/p/itm54f2c7a1541d0',
     'iPad Air 11 (M2)': 'https://www.flipkart.com/apple-2024-ipad-air-m2-128-gb-rom-11-0-inch-wi-fi-only-space-grey/p/itm34f4230179cfd',
     'iPad Pro 13 (M4)': 'https://www.flipkart.com/apple-2024-ipad-pro-m4-512-gb-rom-13-0-inch-wi-fi-5g-m4-chip-silver/p/itm850f624197a33',
+    'Maybelline Lash Sensational Sky High Mascara': 'https://www.flipkart.com/hi/maybelline-new-york-lash-sensational-sky-high-waterproof-mascara-lengthening-volumizing-6-ml/p/itmb161e5beefa85',
+    "L'Oreal Paris Glycolic Bright 1.0% Serum": 'https://www.flipkart.com/l-oral-paris-glycolic-bright-skin-brightening-serum-glowing-reduced-spots/p/itm11c6d00d9179d',
+    'Minimalist 10% Niacinamide Face Serum': 'https://www.flipkart.com/minimalist-10-niacinamide-zinc-face-serum-men-women-skincare-oily-acne-prone-skin-open-pores-blemishes/p/itm97b46d00996e7',
+    'Cetaphil Gentle Skin Cleanser 250ml': 'https://www.flipkart.com/cetaphil-gentle-skin-cleanser-250ml/p/itmf3ya52quepynw',
+    'Garnier Micellar Cleansing Water 400ml': 'https://www.flipkart.com/garnier-micellar-cleansing-water-gentle-cleanser-everyday-use-makeup-remover/p/itmc4f34818ed04d',
+    'COSRX Advanced Snail 96 Mucin Power Essence': 'https://www.flipkart.com/cosrx-advanced-snail-96-mucin-power-essence/p/itma714a649cacb4',
+    'Laneige Lip Sleeping Mask Berry': 'https://www.flipkart.com/laneige-lip-sleeping-mask-berry-made-korea/p/itmc4016169fa905',
+    'MAC MACximal Silky Matte Lipstick Ruby Woo': 'https://www.flipkart.com/m-a-c-macximal-matte-lipstick-ruby-woo/p/itmcb322b5750aaa',
+}
+
+NYKAA_DIRECT = {
+    'Maybelline Lash Sensational Sky High Mascara': 'https://www.nykaa.com/maybelline-new-york-lash-sensational-sky-high-mascara/p/431804',
+    "L'Oreal Paris Glycolic Bright 1.0% Serum": 'https://www.nykaa.com/l-oreal-paris-glycolic-bright-skin-brightening-serum/p/7010178',
+    'Minimalist 10% Niacinamide Face Serum': 'https://www.nykaa.com/minimalist-10percent-niacinamide-face-serum/p/475454',
+    'Cetaphil Gentle Skin Cleanser 250ml': 'https://www.nykaa.com/cetaphil-cleansing-lotion/p/22032',
+    'Garnier Micellar Cleansing Water 400ml': 'https://www.nykaa.com/garnier-micellar-cleansing-water-for-sensitive-skin-for-cleanser-make-up-remover/p/285795',
+    'COSRX Advanced Snail 96 Mucin Power Essence': 'https://www.nykaa.com/cosrx-advanced-snail-96-mucin-power-essence/p/534125',
+    'Laneige Lip Sleeping Mask Berry': 'https://www.nykaa.com/laneige-lip-sleeping-mask-berry/p/15227410',
+    'MAC MACximal Silky Matte Lipstick Ruby Woo': 'https://www.nykaa.com/m-a-c-macximal-silky-matte-lipstick/p/pk/12836269',
+}
+
+TIRA_DIRECT = {
+    'Maybelline Lash Sensational Sky High Mascara': 'https://www.tirabeauty.com/product/maybelline-new-york-lash-sensational-sky-high-mascara-cosmic-black-7-2-ml-8802691',
+    "L'Oreal Paris Glycolic Bright 1.0% Serum": 'https://www.tirabeauty.com/product/loreal-paris-glycolic-bright-skin-brightening-serum-30ml-o916fodtp9',
+    'Minimalist 10% Niacinamide Face Serum': 'https://www.tirabeauty.com/product/minimalist-niacinamide-10-face-serum-60-ml-7618796',
+    'Cetaphil Gentle Skin Cleanser 250ml': 'https://www.tirabeauty.com/product/cetaphil-gentle-skin-cleanser-250ml-l4omkjr-c1',
+    'Garnier Micellar Cleansing Water 400ml': 'https://www.tirabeauty.com/product/garnier-skin-naturals-micellar-cleansing-water-400-ml-947278',
+    'COSRX Advanced Snail 96 Mucin Power Essence': 'https://www.tirabeauty.com/product/cosrx-advanced-snail-96-mucin-power-essence-100ml-8809416470009',
+    'Laneige Lip Sleeping Mask Berry': 'https://www.tirabeauty.com/product/laneige-lip-sleeping-mask-berry-8-g-7600093',
+    'MAC MACximal Silky Matte Lipstick Ruby Woo': 'https://www.tirabeauty.com/product/m-a-c-macximal-silky-matte-lipstick-ruby-woo-3-5-g-15919438',
 }
 
 
@@ -406,13 +502,17 @@ def store_url(store, name, cat=""):
     if (name, store) in DIRECT_PRODUCT_URLS:
         return DIRECT_PRODUCT_URLS[(name, store)]
 
-    # 2. Amazon.in and Flipkart direct ASINs / product page URLs
+    # 2. Direct product page URLs by store
     if store == "Amazon.in" and name in AMAZON_DIRECT:
         return AMAZON_DIRECT[name]
     if store == "Flipkart" and name in FLIPKART_DIRECT:
         return FLIPKART_DIRECT[name]
+    if store == "Nykaa" and name in NYKAA_DIRECT:
+        return NYKAA_DIRECT[name]
+    if store == "Tira" and name in TIRA_DIRECT:
+        return TIRA_DIRECT[name]
 
-    # 3. Fallback to search pages (should rarely be hit)
+    # 3. Fallback to search pages
     q = urllib.parse.quote_plus(name)
     if store == "Amazon.in":
         return f"https://www.amazon.in/s?k={q}"
@@ -422,4 +522,8 @@ def store_url(store, name, cat=""):
         return f"https://www.croma.com/search/?text={q}"
     elif store == "Reliance Digital":
         return f"https://www.reliancedigital.in/search?q={q}:relevance"
+    elif store == "Nykaa":
+        return f"https://www.nykaa.com/search/result/?q={q}"
+    elif store == "Tira":
+        return f"https://www.tirabeauty.com/products/?q={q}"
     return f"https://www.google.com/search?q={q}+{urllib.parse.quote_plus(store)}"
