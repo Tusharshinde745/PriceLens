@@ -173,19 +173,19 @@ function chart(h,days){
   return{fmt,d,svg:`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Price history chart">
    <defs>
      <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-       <stop offset="0%" stop-color="#6c63ff" stop-opacity="0.18"/>
-       <stop offset="100%" stop-color="#6c63ff" stop-opacity="0.00"/>
+       <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.16"/>
+       <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.00"/>
      </linearGradient>
    </defs>
-   ${[mn,mid,mx].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3 4"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="11" font-weight="600" fill="#555570">${inr(v)}</text>`).join('')}
+   ${[mn,mid,mx].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#e2e8f0" stroke-dasharray="3 4"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="11" font-weight="600" fill="#64748b">${inr(v)}</text>`).join('')}
    <path d="${line}L${x(d.length-1)} ${H-B}L${L} ${H-B}Z" fill="url(#chartGrad)"/>
-   <path d="${line}" fill="none" stroke="#6c63ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-   <circle cx="${x(li)}" cy="${y(mn)}" r="5" fill="#00d4aa" stroke="#0a0a0f" stroke-width="2"/>
-   <text x="${Math.min(Math.max(x(li),L+28),W-R-28)}" y="${y(mn)-10}" text-anchor="middle" font-size="11" font-weight="700" fill="#00d4aa">Lowest: ${inr(mn)}</text>
-   <text x="${L}" y="${H-10}" font-size="11" font-weight="600" fill="#555570">${fmt(0)}</text>
-   <text x="${W-R}" y="${H-10}" text-anchor="end" font-size="11" font-weight="600" fill="#555570">${fmt(d.length-1)}</text>
-   <line id="cl" y1="${T}" y2="${H-B}" stroke="#6c63ff" stroke-width="1.5" stroke-dasharray="2 2" opacity="0"/>
-   <circle id="cd" r="4.5" fill="#6c63ff" opacity="0"/>
+   <path d="${line}" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+   <circle cx="${x(li)}" cy="${y(mn)}" r="5" fill="#059669" stroke="#ffffff" stroke-width="2"/>
+   <text x="${Math.min(Math.max(x(li),L+28),W-R-28)}" y="${y(mn)-10}" text-anchor="middle" font-size="11" font-weight="700" fill="#059669">Lowest: ${inr(mn)}</text>
+   <text x="${L}" y="${H-10}" font-size="11" font-weight="600" fill="#64748b">${fmt(0)}</text>
+   <text x="${W-R}" y="${H-10}" text-anchor="end" font-size="11" font-weight="600" fill="#64748b">${fmt(d.length-1)}</text>
+   <line id="cl" y1="${T}" y2="${H-B}" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="2 2" opacity="0"/>
+   <circle id="cd" r="4.5" fill="#4f46e5" opacity="0"/>
    <rect id="hit" x="${L}" y="0" width="${W-L-R}" height="${H}" fill="transparent"/></svg>`,x,y,L,W,R};
 }
 
