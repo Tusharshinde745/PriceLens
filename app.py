@@ -16,9 +16,6 @@ STORES = ["Amazon.in", "Flipkart", "Croma", "Reliance Digital"]
 # Amazon.in, Flipkart, Croma, and Reliance Digital.
 RECENT_PRODUCTS = [
     # Phones
-    ("iPhone 16 Pro Max", "Apple", "Phones", 144900, "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80"),
-    ("iPhone 16 Pro", "Apple", "Phones", 119900, "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80"),
-    ("iPhone 16", "Apple", "Phones", 79900, "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=600&auto=format&fit=crop&q=80"),
     ("Samsung Galaxy S25 Ultra", "Samsung", "Phones", 129999, "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80"),
     ("Samsung Galaxy S25", "Samsung", "Phones", 79999, "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80"),
     ("OnePlus 13", "OnePlus", "Phones", 69999, "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80"),
@@ -84,12 +81,6 @@ RECENT_PRODUCTS = [
 # Direct product detail page URLs for Croma and Reliance Digital
 DIRECT_PRODUCT_URLS = {
     # Phones
-    ("iPhone 16 Pro Max", "Croma"): "https://www.croma.com/apple-iphone-16-pro-max-256gb-desert-titanium/p/309744",
-    ("iPhone 16 Pro Max", "Reliance Digital"): "https://www.reliancedigital.in/apple-iphone-16-pro-max-256-gb-desert-titanium/p/494422945",
-    ("iPhone 16 Pro", "Croma"): "https://www.croma.com/apple-iphone-16-pro-128gb-natural-titanium/p/309062",
-    ("iPhone 16 Pro", "Reliance Digital"): "https://www.reliancedigital.in/apple-iphone-16-pro-128-gb-natural-titanium/p/494422941",
-    ("iPhone 16", "Croma"): "https://www.croma.com/apple-iphone-16-128gb-black/p/309051",
-    ("iPhone 16", "Reliance Digital"): "https://www.reliancedigital.in/apple-iphone-16-128-gb-black/p/494422931",
     ("Samsung Galaxy S25 Ultra", "Croma"): "https://www.croma.com/samsung-galaxy-s25-ultra-5g/p/313200",
     ("Samsung Galaxy S25 Ultra", "Reliance Digital"): "https://www.reliancedigital.in/samsung-galaxy-s25-ultra-5g/p/494423100",
     ("Samsung Galaxy S25", "Croma"): "https://www.croma.com/samsung-galaxy-s25-5g/p/313210",
@@ -200,18 +191,6 @@ DIRECT_PRODUCT_URLS = {
 # Real-time authentic market retail prices across India's top 4 stores
 REAL_STORE_PRICES = {
     # Phones
-    ("iPhone 16 Pro Max", "Amazon.in"): 141900,
-    ("iPhone 16 Pro Max", "Flipkart"): 142900,
-    ("iPhone 16 Pro Max", "Croma"): 144900,
-    ("iPhone 16 Pro Max", "Reliance Digital"): 144900,
-    ("iPhone 16 Pro", "Amazon.in"): 116900,
-    ("iPhone 16 Pro", "Flipkart"): 117900,
-    ("iPhone 16 Pro", "Croma"): 119900,
-    ("iPhone 16 Pro", "Reliance Digital"): 119900,
-    ("iPhone 16", "Amazon.in"): 76900,
-    ("iPhone 16", "Flipkart"): 77999,
-    ("iPhone 16", "Croma"): 79900,
-    ("iPhone 16", "Reliance Digital"): 79900,
     ("Samsung Galaxy S25 Ultra", "Amazon.in"): 127999,
     ("Samsung Galaxy S25 Ultra", "Flipkart"): 128499,
     ("Samsung Galaxy S25 Ultra", "Croma"): 129999,
@@ -471,8 +450,8 @@ def init():
     # Ensure database contains strictly verified products with real-time base prices
     db_names = set(row[0] for row in c.execute("select name from products").fetchall())
     expected_names = set(p[0] for p in RECENT_PRODUCTS)
-    p1 = c.execute("select price from products where name=?", ("iPhone 16 Pro Max",)).fetchone()
-    needs_refresh = (db_names != expected_names) or (not p1) or (p1[0] != 141900)
+    p1 = c.execute("select price from products where name=?", ("Samsung Galaxy S25 Ultra",)).fetchone()
+    needs_refresh = (db_names != expected_names) or (not p1) or (p1[0] != 127999)
     if needs_refresh:
         c.execute("delete from products")
         rnd = random.Random(42)
