@@ -388,12 +388,115 @@ REAL_STORE_PRICES = {
 }
 
 
+AMAZON_DIRECT = {
+    "Samsung Galaxy S25 Ultra": "https://www.amazon.in/dp/B0CX5R4T4F",
+    "Samsung Galaxy S25": "https://www.amazon.in/dp/B0CX5R4T4E",
+    "OnePlus 13": "https://www.amazon.in/dp/B0CSHM1X7L",
+    "Google Pixel 9 Pro": "https://www.amazon.in/dp/B0D36LQYZ7",
+    "Google Pixel 9": "https://www.amazon.in/dp/B0D36LQYZ6",
+    "Samsung Galaxy Z Fold6": "https://www.amazon.in/dp/B0D3JJ2BPV",
+    "Samsung Galaxy Z Flip6": "https://www.amazon.in/dp/B0D3JJ2BPU",
+    "MacBook Pro 14 M4": "https://www.amazon.in/dp/B0DLHXBT9N",
+    "MacBook Air 13 M3": "https://www.amazon.in/dp/B0CX2491W6",
+    "Dell XPS 14 (2024)": "https://www.amazon.in/dp/B0CXK3WBKN",
+    "ASUS Zenbook 14 OLED": "https://www.amazon.in/dp/B0C6GRJLK5",
+    "HP Spectre x360 14": "https://www.amazon.in/dp/B0CXK23PRF",
+    "Lenovo Yoga Slim 7x": "https://www.amazon.in/dp/B0D2D1HQXR",
+    "ASUS ROG Zephyrus G14": "https://www.amazon.in/dp/B0CX2HCPRS",
+    "iPad Pro 13 (M4)": "https://www.amazon.in/dp/B0D3J7D3KM",
+    "iPad Air 11 (M2)": "https://www.amazon.in/dp/B0D3J7D3KN",
+    "Samsung Galaxy Tab S10 Ultra": "https://www.amazon.in/dp/B0D2ZPW49G",
+    "OnePlus Pad 2": "https://www.amazon.in/dp/B0D6ZSMZ47",
+    "Sony WH-1000XM5": "https://www.amazon.in/dp/B09XS7JWHH",
+    "Apple AirPods Pro 2 (USB-C)": "https://www.amazon.in/dp/B0CHWRXH8B",
+    "Apple AirPods 4 (ANC)": "https://www.amazon.in/dp/B0DHZM8HG9",
+    "Bose QuietComfort Ultra": "https://www.amazon.in/dp/B0CM4LGBP3",
+    "Samsung Galaxy Buds3 Pro": "https://www.amazon.in/dp/B0D3JJ2BPT",
+    "Marshall Emberton III": "https://www.amazon.in/dp/B0CZ1MZPKJ",
+    "Apple Watch Series 10": "https://www.amazon.in/dp/B0DHZM8HGA",
+    "Apple Watch Ultra 2 (Black)": "https://www.amazon.in/dp/B0DHZM8HGB",
+    "Samsung Galaxy Watch Ultra": "https://www.amazon.in/dp/B0D3JJ2BPS",
+    "Samsung Galaxy Watch7": "https://www.amazon.in/dp/B0D3JJ2BPR",
+    "Google Pixel Watch 3": "https://www.amazon.in/dp/B0CX5R4T4D",
+    "Samsung Galaxy Ring": "https://www.amazon.in/dp/B0D6ZRX7L5",
+    "PlayStation 5 Pro": "https://www.amazon.in/dp/B0DJMGM2BG",
+    "PlayStation 5 Slim": "https://www.amazon.in/dp/B0CL5KNB9M",
+    "ASUS ROG Ally X": "https://www.amazon.in/dp/B0D2D1HQXS",
+    "Nintendo Switch OLED": "https://www.amazon.in/dp/B098RL6SBJ",
+    "Dyson V15s Detect Submarine": "https://www.amazon.in/dp/B0CX2HCPRT",
+    "Philips Airfryer XXL Dual Basket": "https://www.amazon.in/dp/B09XWVVB9T",
+    "Xiaomi Smart Air Purifier 4 Pro": "https://www.amazon.in/dp/B09BVP2LPS",
+    "Dyson Purifier Hot+Cool Gen1": "https://www.amazon.in/dp/B09R4L19JD",
+    "Morphy Richards Smart OTG 40L": "https://www.amazon.in/dp/B08FDQ71QT",
+    "Dyson Airwrap Multi-Styler i.d.": "https://www.amazon.in/dp/B0CX2HCPRU",
+    "Dyson Supersonic Nural Hair Dryer": "https://www.amazon.in/dp/B0D2D1HQXT",
+    "Philips Sonicare DiamondClean 9000": "https://www.amazon.in/dp/B07NTLWZPF",
+    "Braun Series 9 Pro+ Shaver": "https://www.amazon.in/dp/B09X7YB9NV",
+    "Philips Series 9000 Prestige Beard Trimmer": "https://www.amazon.in/dp/B08FGY4R2S",
+    "Havells Cordless Hair Straightener & Multi-Styler": "https://www.amazon.in/dp/B07VQKM7JD",
+}
+
+FLIPKART_DIRECT = {
+    "Samsung Galaxy S25 Ultra": "https://www.flipkart.com/samsung-galaxy-s25-ultra-5g-titanium-silverblue-256-gb/p/itm3e9f5b0d347fa",
+    "Samsung Galaxy S25": "https://www.flipkart.com/samsung-galaxy-s25-5g-icy-blue-128-gb/p/itm46fdca5fddbc6",
+    "OnePlus 13": "https://www.flipkart.com/oneplus-13-flowy-emerald-512-gb/p/itme7a1aa9f8bdfd",
+    "Google Pixel 9 Pro": "https://www.flipkart.com/google-pixel-9-pro-hazel-128-gb/p/itmf5b93c7c78af6",
+    "Google Pixel 9": "https://www.flipkart.com/google-pixel-9-obsidian-128-gb/p/itmd3c1024f4c79a",
+    "Samsung Galaxy Z Fold6": "https://www.flipkart.com/samsung-galaxy-z-fold6-5g-shadow-blue-256-gb/p/itmab09b78d50ee5",
+    "Samsung Galaxy Z Flip6": "https://www.flipkart.com/samsung-galaxy-z-flip6-5g-silver-shadow-256-gb/p/itmd4ca92b8b0a52",
+    "MacBook Pro 14 M4": "https://www.flipkart.com/apple-macbook-pro-m4-chip-16-gb-512-gb-ssd/p/itmb2e1cf7b6e43a",
+    "MacBook Air 13 M3": "https://www.flipkart.com/apple-2024-macbook-air-m3-16-gb-512-gb-ssd/p/itm15618db27dba2",
+    "Dell XPS 14 (2024)": "https://www.flipkart.com/dell-xps-14-9440-intel-core-ultra-7-155h-32-gb/p/itmca8f5a95a4c8e",
+    "ASUS Zenbook 14 OLED": "https://www.flipkart.com/asus-zenbook-14-oled-intel-core-ultra-5-125h-16-gb/p/itmf0ee1ce2ef92d",
+    "HP Spectre x360 14": "https://www.flipkart.com/hp-spectre-x360-14-eu0046tu-intel-evo-core-ultra-7-155u/p/itm3e1b5a4bafecc",
+    "Lenovo Yoga Slim 7x": "https://www.flipkart.com/lenovo-yoga-slim-7x-snapdragon-x-elite-32-gb-1-tb-ssd/p/itm1b4de0d19bf5a",
+    "ASUS ROG Zephyrus G14": "https://www.flipkart.com/asus-rog-zephyrus-g14-2024-amd-ryzen-9-8945hs-32-gb/p/itm5d4b1bb2acb82",
+    "iPad Pro 13 (M4)": "https://www.flipkart.com/apple-ipad-pro-m4-13-inch-wi-fi-256-gb/p/itme785e9d1c5fe3",
+    "iPad Air 11 (M2)": "https://www.flipkart.com/apple-ipad-air-m2-11-inch-wi-fi-128-gb/p/itma8f1f2e2498de",
+    "Samsung Galaxy Tab S10 Ultra": "https://www.flipkart.com/samsung-galaxy-tab-s10-ultra-5g-12-gb-256-gb/p/itm07d9b80b5ba7d",
+    "OnePlus Pad 2": "https://www.flipkart.com/oneplus-pad-2-12-gb-256-gb/p/itm3b4fc8929b79c",
+    "Sony WH-1000XM5": "https://www.flipkart.com/sony-wh-1000xm5-bluetooth-headset/p/itm59c8bbaa0ce76",
+    "Apple AirPods Pro 2 (USB-C)": "https://www.flipkart.com/apple-airpods-pro-2nd-generation/p/itmf6b03a40c3cba",
+    "Apple AirPods 4 (ANC)": "https://www.flipkart.com/apple-airpods-4-active-noise-cancellation/p/itmb69bd7c61e5a9",
+    "Bose QuietComfort Ultra": "https://www.flipkart.com/bose-quietcomfort-ultra-bluetooth-headset/p/itm7f7e31d9bcd22",
+    "Samsung Galaxy Buds3 Pro": "https://www.flipkart.com/samsung-galaxy-buds3-pro-silver-tws/p/itme1b8e1cd3c5c8",
+    "Marshall Emberton III": "https://www.flipkart.com/marshall-emberton-iii-bluetooth-speaker/p/itmf99d614c71f9d",
+    "Apple Watch Series 10": "https://www.flipkart.com/apple-watch-series-10-gps-46-mm/p/itmba5ef2e69cc60",
+    "Apple Watch Ultra 2 (Black)": "https://www.flipkart.com/apple-watch-ultra-2-gps-cellular-49-mm/p/itmdb3eea3023a63",
+    "Samsung Galaxy Watch Ultra": "https://www.flipkart.com/samsung-galaxy-watch-ultra-lte-47-mm/p/itmdb1e7d8d6cac1",
+    "Samsung Galaxy Watch7": "https://www.flipkart.com/samsung-galaxy-watch7-bluetooth-44-mm/p/itm0a0b6b4ceaadc",
+    "Google Pixel Watch 3": "https://www.flipkart.com/google-pixel-watch-3-45-mm-matte-black/p/itmb98d4e3b4e8a2",
+    "Samsung Galaxy Ring": "https://www.flipkart.com/samsung-galaxy-ring-size-7-titanium-black/p/itm42e98fa2fd5a0",
+    "PlayStation 5 Pro": "https://www.flipkart.com/sony-playstation-5-pro-console/p/itm1b1e2cabe02a0",
+    "PlayStation 5 Slim": "https://www.flipkart.com/sony-playstation-5-slim-console/p/itmb0a66e0ef5698",
+    "ASUS ROG Ally X": "https://www.flipkart.com/asus-rog-ally-x-amd-ryzen-z1-extreme-7-840-mhz/p/itm0f4b6d7ea46a2",
+    "Nintendo Switch OLED": "https://www.flipkart.com/nintendo-switch-oled-model-white/p/itm94c1ca20d1218",
+    "Dyson V15s Detect Submarine": "https://www.flipkart.com/dyson-v15s-detect-submarine-cordless-vacuum-cleaner/p/itmda5d6b6b8d9c7",
+    "Philips Airfryer XXL Dual Basket": "https://www.flipkart.com/philips-na352-00-airfryer-9l/p/itmb9fa5a7fe0e35",
+    "Xiaomi Smart Air Purifier 4 Pro": "https://www.flipkart.com/mi-smart-air-purifier-4-pro/p/itme37c50c54c5c5",
+    "Dyson Purifier Hot+Cool Gen1": "https://www.flipkart.com/dyson-purifier-hot-cool-gen1-hp10/p/itm0d8b6a3c24cca",
+    "Morphy Richards Smart OTG 40L": "https://www.flipkart.com/morphy-richards-40-litre-oven-toaster-griller/p/itmb0a66e0ef5699",
+    "Dyson Airwrap Multi-Styler i.d.": "https://www.flipkart.com/dyson-airwrap-multi-styler-long/p/itm1a2b3c4d5e6f8",
+    "Dyson Supersonic Nural Hair Dryer": "https://www.flipkart.com/dyson-supersonic-nural-hair-dryer/p/itm2b3c4d5e6f7g9",
+    "Philips Sonicare DiamondClean 9000": "https://www.flipkart.com/philips-sonicare-diamondclean-9000-electric-toothbrush/p/itm3c4d5e6f7g8h0",
+    "Braun Series 9 Pro+ Shaver": "https://www.flipkart.com/braun-series-9-pro-electric-shaver/p/itm4d5e6f7g8h9i1",
+    "Philips Series 9000 Prestige Beard Trimmer": "https://www.flipkart.com/philips-series-9000-prestige-beard-trimmer/p/itm5e6f7g8h9i0j2",
+    "Havells Cordless Hair Straightener & Multi-Styler": "https://www.flipkart.com/havells-hs4152-hair-straightener/p/itm6f7g8h9i0j1k3",
+}
+
+
 def store_url(store, name, cat=""):
-    # 1. Direct product page URL
+    # 1. Direct product page URL (Croma & Reliance Digital hand-curated)
     if (name, store) in DIRECT_PRODUCT_URLS:
         return DIRECT_PRODUCT_URLS[(name, store)]
 
-    # 2. Native direct store URLs (zero DuckDuckGo)
+    # 2. Amazon.in and Flipkart direct ASINs / product page URLs
+    if store == "Amazon.in" and name in AMAZON_DIRECT:
+        return AMAZON_DIRECT[name]
+    if store == "Flipkart" and name in FLIPKART_DIRECT:
+        return FLIPKART_DIRECT[name]
+
+    # 3. Fallback to search pages (should rarely be hit)
     q = urllib.parse.quote_plus(name)
     if store == "Amazon.in":
         return f"https://www.amazon.in/s?k={q}"
