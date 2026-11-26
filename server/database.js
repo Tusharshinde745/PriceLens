@@ -52,10 +52,7 @@ export async function initSQL() {
   `);
 
   const seedProducts = JSON.parse(fs.readFileSync(DATA_PATH, "utf-8"));
-  const res = db.exec("SELECT COUNT(*) AS cnt FROM products");
-  const count = res[0]?.values[0][0] || 0;
-
-  if (count !== seedProducts.length) {
+  if (seedProducts.length > 0) {
     db.run("DELETE FROM products");
     const stmt = db.prepare(`
       INSERT INTO products (
@@ -90,9 +87,7 @@ export async function initSQL() {
     }
     stmt.free();
     saveDB();
-    console.log(`[PriceLens SQL] Seeded ${seedProducts.length} products into SQLite.`);
-  } else {
-    console.log(`[PriceLens SQL] Loaded ${count} products from SQLite.`);
+    console.log(`[PriceLens SQL] Synced ${seedProducts.length} products into SQLite.`);
   }
 }
 
