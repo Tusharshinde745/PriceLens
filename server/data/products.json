@@ -18759,17 +18759,17 @@
   },
   {
     "id": 51,
-    "name": "Milton Thermosteel Flip Lid Flask 1000ml",
-    "brand": "Milton",
+    "name": "Pigeon Zoom Electric Chopper",
+    "brand": "Pigeon",
     "cat": "Home",
-    "price": 899,
-    "mrp": 999,
+    "price": 599,
+    "mrp": 649,
     "lowest_store": "Blinkit",
-    "lowest_price": 899,
+    "lowest_price": 599,
     "highest_store": "Instamart",
-    "highest_price": 999,
-    "savings": 100,
-    "savings_pct": 10.0,
+    "highest_price": 649,
+    "savings": 50,
+    "savings_pct": 7.7,
     "day": 0.0,
     "low": 872,
     "high": 987,
@@ -18779,23 +18779,23 @@
     "stores": [
       {
         "name": "Blinkit",
-        "price": null,
-        "url": null,
-        "available": false,
-        "is_lowest": false
+        "price": 599,
+        "url": "https://blinkit.com/prn/pigeon-electric-chopper-30-w-dark-green/prid/786028",
+        "available": true,
+        "is_lowest": true
       },
       {
         "name": "Zepto",
-        "price": null,
-        "url": null,
-        "available": false,
+        "price": 619,
+        "url": "https://www.zepto.com/pn/pigeon-zoom-electric-chopper-350-ml/pvid/976eee54-58d3-4f34-b282-e174d4b95f90",
+        "available": true,
         "is_lowest": false
       },
       {
         "name": "Instamart",
-        "price": null,
-        "url": null,
-        "available": false,
+        "price": 649,
+        "url": "https://instamart.in/p/pigeon-zoom-electric-chopper-250-ml-portable-with-3-stainless-steel-blades-for-effortlessly-chopping-vegetables-and-fruits-blue-FTMZ34I8O4",
+        "available": true,
         "is_lowest": false
       }
     ],
