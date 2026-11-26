@@ -18356,10 +18356,10 @@
     "mrp": 649,
     "lowest_store": "Blinkit",
     "lowest_price": 599,
-    "highest_store": "Instamart",
-    "highest_price": 649,
-    "savings": 50,
-    "savings_pct": 7.7,
+    "highest_store": "Zepto",
+    "highest_price": 629,
+    "savings": 30,
+    "savings_pct": 4.8,
     "day": 0.0,
     "low": 562,
     "high": 645,
@@ -18383,9 +18383,9 @@
       },
       {
         "name": "Instamart",
-        "price": 649,
-        "url": "https://www.swiggy.com/instamart/search?custom_back=true&query=Pigeon+Amaze+Plus+Electric+Kettle+1.5L",
-        "available": true,
+        "price": null,
+        "url": null,
+        "available": false,
         "is_lowest": false
       }
     ],
@@ -18779,23 +18779,23 @@
     "stores": [
       {
         "name": "Blinkit",
-        "price": 899,
-        "url": "https://blinkit.com/s/?q=Milton+Thermosteel+Flip+Lid+Flask+1000ml",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Zepto",
-        "price": 949,
-        "url": "https://www.zeptonow.com/search?query=Milton+Thermosteel+Flip+Lid+Flask+1000ml",
-        "available": true,
+        "price": null,
+        "url": null,
+        "available": false,
         "is_lowest": false
       },
       {
         "name": "Instamart",
-        "price": 999,
-        "url": "https://www.swiggy.com/instamart/search?custom_back=true&query=Milton+Thermosteel+Flip+Lid+Flask+1000ml",
-        "available": true,
+        "price": null,
+        "url": null,
+        "available": false,
         "is_lowest": false
       }
     ],
@@ -19196,9 +19196,9 @@
       },
       {
         "name": "Zepto",
-        "price": 1449,
-        "url": "https://www.zeptonow.com/search?query=Bajaj+Majesty+ATX+4+750W+Pop-up+Toaster",
-        "available": true,
+        "price": null,
+        "url": null,
+        "available": false,
         "is_lowest": false
       },
       {
@@ -19586,10 +19586,10 @@
     "mrp": 3299,
     "lowest_store": "Blinkit",
     "lowest_price": 2999,
-    "highest_store": "Instamart",
-    "highest_price": 3299,
-    "savings": 300,
-    "savings_pct": 9.1,
+    "highest_store": "Blinkit",
+    "highest_price": 2999,
+    "savings": 0,
+    "savings_pct": 0.0,
     "day": 0.0,
     "low": 2825,
     "high": 3217,
@@ -19606,16 +19606,16 @@
       },
       {
         "name": "Zepto",
-        "price": 3149,
-        "url": "https://www.zeptonow.com/search?query=Prestige+Iris+750W+Mixer+Grinder",
-        "available": true,
+        "price": null,
+        "url": null,
+        "available": false,
         "is_lowest": false
       },
       {
         "name": "Instamart",
-        "price": 3299,
-        "url": "https://www.swiggy.com/instamart/search?custom_back=true&query=Prestige+Iris+750W+Mixer+Grinder",
-        "available": true,
+        "price": null,
+        "url": null,
+        "available": false,
         "is_lowest": false
       }
     ],
@@ -19994,12 +19994,12 @@
     "cat": "Home",
     "price": 3499,
     "mrp": 3699,
-    "lowest_store": "Blinkit",
-    "lowest_price": 3499,
-    "highest_store": "Instamart",
-    "highest_price": 3699,
-    "savings": 200,
-    "savings_pct": 5.4,
+    "lowest_store": "Zepto",
+    "lowest_price": 3599,
+    "highest_store": "Zepto",
+    "highest_price": 3599,
+    "savings": 0,
+    "savings_pct": 0.0,
     "day": 0.0,
     "low": 3274,
     "high": 3763,
@@ -20009,23 +20009,23 @@
     "stores": [
       {
         "name": "Blinkit",
-        "price": 3499,
-        "url": "https://blinkit.com/s/?q=Philips+HL7756%2F00+750W+Mixer+Grinder",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Zepto",
         "price": 3599,
         "url": "https://www.zeptonow.com/pn/philips-mixer-grinder-food-processor-3-in-1-750-w-4-jars-black/pvid/b2283f14-c0f0-4bc5-a025-54fa0ef02dcb",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
       },
       {
         "name": "Instamart",
-        "price": 3699,
-        "url": "https://www.swiggy.com/instamart/search?custom_back=true&query=Philips+HL7756%2F00+750W+Mixer+Grinder",
-        "available": true,
+        "price": null,
+        "url": null,
+        "available": false,
         "is_lowest": false
       }
     ],
