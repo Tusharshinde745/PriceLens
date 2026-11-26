@@ -18370,14 +18370,14 @@
       {
         "name": "Blinkit",
         "price": 599,
-        "url": "https://blinkit.com/s/?q=Pigeon+Amaze+Plus+Electric+Kettle+1.5L",
+        "url": "https://blinkit.com/prn/pigeon-electric-kettle-sap-14289-stainless-steel/prid/498558",
         "available": true,
         "is_lowest": true
       },
       {
         "name": "Zepto",
         "price": 629,
-        "url": "https://www.zeptonow.com/search?query=Pigeon+Amaze+Plus+Electric+Kettle+1.5L",
+        "url": "https://www.zepto.com/pn/pigeon-by-stovekraft-amaze-plus-electric-kettle-14289-with-stainless-steel-body-15-litre-silver/pvid/a2c6f2a7-1538-4167-802d-682279eefc4a",
         "available": true,
         "is_lowest": false
       },
@@ -19190,7 +19190,7 @@
       {
         "name": "Blinkit",
         "price": 1399,
-        "url": "https://blinkit.com/s/?q=Bajaj+Majesty+ATX+4+750W+Pop-up+Toaster",
+        "url": "https://blinkit.com/prn/bajaj-atx-4-pop-up-toaster-(750-w,-white)/prid/507846",
         "available": true,
         "is_lowest": true
       },
@@ -19204,7 +19204,7 @@
       {
         "name": "Instamart",
         "price": 1499,
-        "url": "https://www.swiggy.com/instamart/search?custom_back=true&query=Bajaj+Majesty+ATX+4+750W+Pop-up+Toaster",
+        "url": "https://instamart.in/p/bajaj-2-slice-atx-4-pop-up-toaster-750-watt-white-3RRYCWW5JQ",
         "available": true,
         "is_lowest": false
       }
@@ -19600,7 +19600,7 @@
       {
         "name": "Blinkit",
         "price": 2999,
-        "url": "https://blinkit.com/s/?q=Prestige+Iris+750W+Mixer+Grinder",
+        "url": "https://blinkit.com/prn/prestige-regal-juicer-mixer-grinder-750-w-black-red/prid/548836",
         "available": true,
         "is_lowest": true
       },
@@ -20017,7 +20017,7 @@
       {
         "name": "Zepto",
         "price": 3599,
-        "url": "https://www.zeptonow.com/search?query=Philips+HL7756%2F00+750W+Mixer+Grinder",
+        "url": "https://www.zeptonow.com/pn/philips-mixer-grinder-food-processor-3-in-1-750-w-4-jars-black/pvid/b2283f14-c0f0-4bc5-a025-54fa0ef02dcb",
         "available": true,
         "is_lowest": false
       },
