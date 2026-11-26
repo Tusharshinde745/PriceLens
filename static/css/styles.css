@@ -1036,3 +1036,7 @@ footer {
   border-style: dashed;
   pointer-events: none;
 }
+
+.store-dot-blinkit { background: #f8cb46; }
+.store-dot-zepto { background: #6c2bd9; }
+.store-dot-instamart { background: #fc8019; }
