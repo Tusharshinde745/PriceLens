@@ -122,21 +122,9 @@ function drawGrid(){
             <span class="lowest-pill-mini">Lowest highlighted</span>
           </div>
           <div class="store-links-grid">
-            ${p.stores.map(s=>{
+            ${p.stores.filter(s=>s.available&&s.price!==null).map(s=>{
               const sk=s.name.toLowerCase();
               const dotClass=sk.includes('amazon')?'store-dot-amazon':sk.includes('flipkart')?'store-dot-flipkart':sk.includes('croma')?'store-dot-croma':sk.includes('nykaa')?'store-dot-nykaa':sk.includes('tira')?'store-dot-tira':'store-dot-reliance';
-              if(!s.available||s.price===null){
-                return `
-                <div class="store-link-btn is-unavailable" title="${s.name} — Currently not available">
-                  <div class="store-btn-header">
-                    <span class="store-btn-name">
-                      <span class="store-color-dot ${dotClass}"></span>
-                      ${s.name.replace('.in','')}
-                    </span>
-                  </div>
-                  <div class="store-btn-price" style="color:var(--text-subtle);font-size:11px;font-weight:600">Not Available</div>
-                </div>`;
-              }
               return `
               <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="store-link-btn ${s.is_lowest?'is-lowest':''}" title="${s.is_lowest?'Lowest price — Buy on '+s.name:'Buy on '+s.name}">
                 <div class="store-btn-header">
@@ -246,19 +234,9 @@ async function openProduct(id,quiet){
 
       <div class="modal-stores-heading">Live Store Prices — Click to Buy Directly:</div>
       <div class="modal-stores-grid">
-        ${d.stores.map((s,i)=>{
+        ${d.stores.filter(s=>s.available&&s.price!==null).map((s,i)=>{
           const sk=s.name.toLowerCase();
           const dotClass=sk.includes('amazon')?'store-dot-amazon':sk.includes('flipkart')?'store-dot-flipkart':sk.includes('croma')?'store-dot-croma':'store-dot-reliance';
-          if(!s.available||s.price===null){
-            return `
-            <div class="store-card is-unavailable">
-              <div class="store-top-line">
-                <span><span class="store-color-dot ${dotClass}" style="display:inline-block;margin-right:6px"></span>${s.name.replace('.in','')}</span>
-              </div>
-              <div class="store-card-price" style="color:var(--text-subtle);font-size:13px">Not Available</div>
-              <div class="store-card-cta" style="color:var(--text-subtle)">Unavailable</div>
-            </div>`;
-          }
           const diffFromLowest=s.price-(d.lowest_price||d.price);
           return `
           <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="store-card ${s.is_lowest||i===0?'best':''}">
