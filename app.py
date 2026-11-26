@@ -1,77 +1,24 @@
-import json, os, random, sqlite3, threading, time
+import json, os, threading, time
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request, send_from_directory, redirect
+from flask import Flask, jsonify, send_from_directory, redirect
 
 load_dotenv()
 
-BASE = os.path.dirname(os.path.abspath(__file__))
-DB = os.path.join(BASE, "pricelens.db")
 app = Flask(__name__, static_folder="static")
 
 from data import (
-    STORES,
     RECENT_PRODUCTS,
     REAL_STORE_PRICES,
     stores_for_product,
     store_url,
 )
-
-
-def db():
-    c = sqlite3.connect(DB)
-    c.row_factory = sqlite3.Row
-    return c
-
-
-def inr(n):
-    s = str(int(round(n)))
-    t, r = s[-3:], s[:-3]
-    while r:
-        t, r = r[-2:] + "," + t, r[:-2]
-    return "\u20b9" + t
-
-
-def make_history(base, rnd):
-    p = base * rnd.uniform(1.04, 1.12)
-    out = []
-    for _ in range(365):
-        p += (base * 0.97 - p) * 0.02 + p * rnd.gauss(0, 0.006)
-        if rnd.random() < 0.02:
-            p *= 0.93  # a sale
-        out.append(round(p))
-    return out
-
-
-def init():
-    c = db()
-    c.executescript("""
-    create table if not exists products(id integer primary key, name text, brand text, cat text, price real, hist text, image text);
-    create table if not exists offers(product_id int, store text, price real, url text, updated text, primary key(product_id, store));
-    create table if not exists meta(k text primary key, v text);
-    """)
-    for col in ("real integer default 0", "image text", "url text", "mkey text", "hday text"):
-        try:
-            c.execute("alter table products add column " + col)
-        except sqlite3.OperationalError:
-            pass
-
-    # Ensure database contains strictly verified products with real-time base prices
-    db_names = set(row[0] for row in c.execute("select name from products").fetchall())
-    expected_names = set(p[0] for p in RECENT_PRODUCTS)
-    p1 = c.execute("select price from products where name=?", ("Samsung Galaxy S25 Ultra",)).fetchone()
-    needs_refresh = (db_names != expected_names) or (not p1) or (p1[0] != 86619)
-    if needs_refresh:
-        c.execute("delete from products")
-        rnd = random.Random(42)
-        for name, brand, cat, base_price, img in RECENT_PRODUCTS:
-            p_stores = stores_for_product(name, cat)
-            lowest = min((REAL_STORE_PRICES.get((name, s), base_price) for s in p_stores if REAL_STORE_PRICES.get((name, s), base_price) is not None), default=base_price)
-            h = make_history(float(lowest), rnd)
-            h[-1] = lowest
-            c.execute("insert into products(name,brand,cat,price,hist,image,real) values(?,?,?,?,?,?,1)",
-                      (name, brand, cat, lowest, json.dumps(h), img))
-    c.commit()
-    c.close()
+from database import (
+    init,
+    fetch_products,
+    fetch_product,
+    fetch_product_meta,
+    fetch_status,
+)
 
 
 def card(r, offers_map=None):
@@ -128,43 +75,26 @@ def home():
     return send_from_directory("static", "index.html")
 
 
-def _offers_map(c, pid=None):
-    q = "select product_id, store, price, url from offers" + (" where product_id=?" if pid is not None else "")
-    rows = c.execute(q, (pid,) if pid is not None else ()).fetchall()
-    out = {}
-    for o in rows:
-        out.setdefault(o["product_id"], {})[o["store"]] = dict(price=o["price"], url=o["url"])
-    return out
-
-
 @app.get("/api/products")
 def products():
-    c = db()
-    omap = _offers_map(c)
-    rows = [card(r, omap) for r in c.execute("select * from products")]
-    c.close()
-    return jsonify(rows)
+    rows, omap = fetch_products()
+    return jsonify([card(r, omap) for r in rows])
 
 
 @app.get("/api/products/<int:pid>")
 def product(pid):
-    c = db()
-    r = c.execute("select * from products where id=?", (pid,)).fetchone()
+    r, omap = fetch_product(pid)
     if not r:
-        c.close()
         return jsonify(error="Product not found"), 404
-    d = card(r, _offers_map(c, pid))
+    d = card(r, omap)
     d["hist"] = json.loads(r["hist"])
     d["watch"] = None
-    c.close()
     return jsonify(d)
 
 
 @app.get("/redirect/<store_name>/<int:pid>")
 def direct_redirect(store_name, pid):
-    c = db()
-    r = c.execute("select name, cat from products where id=?", (pid,)).fetchone()
-    c.close()
+    r = fetch_product_meta(pid)
     if not r:
         return "Product not found", 404
     name = r["name"]
@@ -183,10 +113,8 @@ def direct_redirect(store_name, pid):
 
 @app.get("/api/live")
 def live():
-    c = db()
-    rows = [card(r) for r in c.execute("select * from products where real=1")]
-    c.close()
-    return jsonify(rows)
+    rows, _ = fetch_products(real_only=True)
+    return jsonify([card(r) for r in rows])
 
 
 @app.get("/api/live-status")
@@ -203,12 +131,9 @@ def live_status():
 
 @app.get("/api/status")
 def status():
-    c = db()
-    m = c.execute("select v from meta where k='last_sync'").fetchone()
-    n = c.execute("select count(*) n from products where real=1").fetchone()["n"]
-    c.close()
+    last_sync, live_count = fetch_status()
     keys = bool(os.getenv("SERPAPI_KEY") or (os.getenv("FLIPKART_AFFILIATE_ID") and os.getenv("FLIPKART_AFFILIATE_TOKEN")))
-    return jsonify(keys=keys, live=n, last_sync=m["v"] if m else None)
+    return jsonify(keys=keys, live=live_count, last_sync=last_sync)
 
 
 def _sync_loop(minutes):
@@ -225,6 +150,6 @@ def _sync_loop(minutes):
 init()
 if __name__ == "__main__":
     mins = int(os.getenv("SYNC_INTERVAL_MIN", "0") or 0)
-    if mins and os.environ.get("WERKZEUG_RUN_MAIN") == "true":  # only in the reloader's worker process
+    if mins and os.environ.get("WERKZEUG_RUN_MAIN") == "true":
         threading.Thread(target=_sync_loop, args=(mins,), daemon=True).start()
     app.run(debug=True)
