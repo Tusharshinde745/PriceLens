@@ -83,14 +83,12 @@ app.get("/api/status", async (req, res) => {
   res.json({ ok: true, database: useMongo ? "MongoDB" : "JSON Store", live: count });
 });
 
-// Serve built React frontend in production
-const clientDist = path.join(__dirname, "..", "client", "dist");
-if (fs.existsSync(clientDist)) {
-  app.use(express.static(clientDist));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(clientDist, "index.html"));
-  });
-}
+// Serve standard HTML, CSS, JS frontend from static/
+const staticDir = path.join(__dirname, "..", "static");
+app.use(express.static(staticDir));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(staticDir, "index.html"));
+});
 
 connectDB().then(() => {
   app.listen(PORT, () => {

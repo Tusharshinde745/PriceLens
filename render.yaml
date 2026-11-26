@@ -3,7 +3,7 @@ services:
     name: pricelens
     env: node
     plan: free
-    buildCommand: npm --prefix server install && npm --prefix client install && npm --prefix client run build
+    buildCommand: npm --prefix server install
     startCommand: node server/server.js
     envVars:
       - key: NODE_ENV
