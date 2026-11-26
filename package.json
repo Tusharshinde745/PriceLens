@@ -1,0 +1,9 @@
+{
+  "name": "pricelens",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "npm --prefix server install",
+    "start": "node server/server.js"
+  }
+}
