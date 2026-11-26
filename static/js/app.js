@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s), inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
-let P=[], cat='All', me=null, cur=null, mode='login', lastUnseen=0, openId=null, sortv='';
+let P=[], cat='All', cur=null, openId=null, sortv='';
 
 async function api(u,o={}){
   const r=await fetch(u,{method:o.method||'GET',headers:{'Content-Type':'application/json'},body:o.body?JSON.stringify(o.body):undefined});
@@ -138,7 +138,7 @@ function drawGrid(){
               </a>`;
             }).join('')}
           </div>
-          <button class="detail-view-btn" onclick="openProduct(${p.id})">Price History &amp; Set Alert →</button>
+          <button class="detail-view-btn" onclick="openProduct(${p.id})">Price History &amp; Details →</button>
         </div>
       </div>
     </div>
@@ -257,111 +257,15 @@ async function openProduct(id,quiet){
       </div>
       ${c.svg}
       <div class="chart-tooltip" id="tip">Hover to inspect price movement &nbsp;•&nbsp; Year Low: ${inr(d.low)} &nbsp;•&nbsp; High: ${inr(d.high)}</div>
-
-      <div class="alert-row">
-        <div>
-          <div style="font-weight:800;font-size:14px;color:var(--text-main)">Set Price Drop Notification</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Get alerted when price falls to your budget.</div>
-          ${!d.watch?`
-            <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-              <button type="button" class="preset-btn" onclick="$('#tgt').value=Math.round(${d.price}*0.95/100)*100">-5% (${inr(Math.round(d.price*0.95))})</button>
-              <button type="button" class="preset-btn" onclick="$('#tgt').value=Math.round(${d.price}*0.90/100)*100">-10% (${inr(Math.round(d.price*0.90))})</button>
-              <button type="button" class="preset-btn" onclick="$('#tgt').value=Math.round(${d.price}*0.85/100)*100">-15% (${inr(Math.round(d.price*0.85))})</button>
-            </div>
-          `:''}
-        </div>
-        ${d.watch?`
-          <div style="display:flex;align-items:center;gap:10px">
-            <span style="font-weight:700;font-size:13px;color:var(--green)">Tracking at ${inr(d.watch)}</span>
-            <button class="btn-secondary" id="untrack">Stop Alert</button>
-          </div>
-        `:`
-          <div class="alert-input-group">
-            <input id="tgt" type="number" min="1" value="${Math.round(d.price*.95/100)*100}">
-            <button class="btn-primary" id="dotrack">Set Alert</button>
-          </div>
-        `}
-      </div>
     `;
     wire($('#pbody'),c,$('#tip'));
   };
   draw();
   $('#pm').classList.add('open');
-  $('#pbody').onclick=async e=>{
-    const r=e.target.dataset.r;if(r){range=+r;draw();return}
-    if(e.target.id==='dotrack'){
-      if(!me){openAuth('login');return}
-      try{await api('/api/watch',{method:'POST',body:{product_id:id,target:+$('#tgt').value}});toast("Price alert set successfully.");await loadNotes(true);openProduct(id,true)}catch(er){toast(er.message)}
-    }
-    if(e.target.id==='untrack'){
-      await api('/api/watch/'+id,{method:'DELETE'});
-      toast('Price alert removed.');openProduct(id,true);
-    }
+  $('#pbody').onclick=e=>{
+    const r=e.target.dataset.r;if(r){range=+r;draw();}
   };
 }
-
-/* ── Auth Modal ── */
-function openAuth(m){
-  mode=m;const reg=m==='register';
-  $('#atitle').textContent=reg?'Create Account':'Sign In';
-  $('#asub').textContent=reg?'Free, takes 30 seconds.':'Manage your price alerts and tracked gadgets.';
-  $('#nameF').hidden=!reg;
-  $('#asubmit').textContent=reg?'Create Account':'Sign In';
-  $('#aswl').textContent=reg?'Already registered?':"Don't have an account?";
-  $('#aswap').textContent=reg?'Sign In':'Create account';
-  $('#aerr').textContent='';
-  $('#am').classList.add('open');
-  setTimeout(()=>(reg?$('#an'):$('#ae')).focus(),50);
-}
-
-$('#aswap').onclick=()=>openAuth(mode==='login'?'register':'login');
-$('#asubmit').onclick=async()=>{
-  try{
-    const j=await api('/api/'+mode,{method:'POST',body:{name:$('#an').value,email:$('#ae').value,password:$('#ap').value}});
-    me=j.name;$('#am').classList.remove('open');setAcct();toast(`Welcome, ${me.split(' ')[0]}!`);loadNotes(false);
-  }catch(e){$('#aerr').textContent=e.message}
-};
-$('#am').addEventListener('keydown',e=>{if(e.key==='Enter')$('#asubmit').click()});
-
-function setAcct(){
-  $('#acct').textContent=me?`${me.split(' ')[0]}`:'Sign In';
-  if(!me)$('#badge').hidden=true;
-  if(me){
-    $('#acct').classList.remove('btn-signin');
-    $('#acct').classList.add('header-btn');
-  } else {
-    $('#acct').classList.add('btn-signin');
-  }
-}
-
-$('#acct').onclick=async()=>{
-  if(me){
-    if(confirm(`Signed in as ${me}. Sign out?`)){
-      await api('/api/logout',{method:'POST'});
-      me=null;setAcct();$('#panel').classList.remove('open');toast('Signed out.');
-    }
-  } else {
-    openAuth('login');
-  }
-};
-
-/* ── Notifications ── */
-async function loadNotes(announce){
-  if(!me)return;
-  const j=await api('/api/notes');
-  const b=$('#badge');b.hidden=!j.unseen;b.textContent=j.unseen;
-  if(announce&&j.unseen>lastUnseen)toast(j.items[0].msg);
-  lastUnseen=j.unseen;
-  $('#panel').innerHTML=j.items.length?j.items.map(n=>`
-    <div class="${n.seen?'':'new'}">${n.msg}<small>${new Date(n.ts*1000).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}</small></div>
-  `).join(''):'<div>No active alerts. Click any product to set a target price.</div>';
-}
-
-$('#bell').onclick=async()=>{
-  if(!me){openAuth('login');return}
-  const p=$('#panel');p.classList.toggle('open');
-  if(p.classList.contains('open')){await loadNotes(false);await api('/api/notes/seen',{method:'POST'});lastUnseen=0;$('#badge').hidden=true}
-};
 
 /* ── Modal close ── */
 document.addEventListener('click',e=>{
@@ -369,7 +273,6 @@ document.addEventListener('click',e=>{
     document.querySelectorAll('.modal-scrim').forEach(s=>s.classList.remove('open'));
     openId=null;
   }
-  if(!e.target.closest('#panel,#bell'))$('#panel').classList.remove('open');
 });
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
@@ -395,11 +298,8 @@ async function refreshLivePrices(){
 /* ── Init ── */
 (async()=>{
   P=await api('/api/products');
-  me=(await api('/api/me')).name;
-  setAcct();
   renderFilterState();
   drawGrid();
-  loadNotes(false);
   updateLiveClock();
   setInterval(refreshLivePrices,15000);
   setInterval(updateLiveClock,1000);

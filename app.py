@@ -1,14 +1,12 @@
 import json, os, random, sqlite3, threading, time
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request, session, send_from_directory, redirect
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, jsonify, request, send_from_directory, redirect
 
 load_dotenv()
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DB = os.path.join(BASE, "pricelens.db")
 app = Flask(__name__, static_folder="static")
-app.secret_key = os.getenv("SECRET_KEY", "dev-only-change-me")
 
 from data import (
     STORES,
@@ -47,10 +45,7 @@ def make_history(base, rnd):
 def init():
     c = db()
     c.executescript("""
-    create table if not exists users(id integer primary key, name text, email text unique, pw text);
     create table if not exists products(id integer primary key, name text, brand text, cat text, price real, hist text, image text);
-    create table if not exists watches(user_id int, product_id int, target real, hit int default 0, primary key(user_id, product_id));
-    create table if not exists notes(id integer primary key, user_id int, msg text, ts real, seen int default 0);
     create table if not exists offers(product_id int, store text, price real, url text, updated text, primary key(product_id, store));
     create table if not exists meta(k text primary key, v text);
     """)
@@ -120,24 +115,6 @@ def card(r, offers_map=None):
                 verified="Real-Time Active")
 
 
-def uid():
-    return session.get("uid")
-
-
-def note(c, user_id, msg):
-    c.execute("insert into notes(user_id,msg,ts) values(?,?,?)", (user_id, msg, time.time()))
-
-
-def check_watches(c, pid, name, new):
-    """Fires a price alert when a tracked product reaches the user's target (used by tick and sync)."""
-    for w in c.execute("select * from watches where product_id=?", (pid,)).fetchall():
-        if new <= w["target"] and not w["hit"]:
-            note(c, w["user_id"], f"{name} dropped to {inr(new)}, at or below your target of {inr(w['target'])}.")
-            c.execute("update watches set hit=1 where user_id=? and product_id=?", (w["user_id"], pid))
-        elif new > w["target"] and w["hit"]:
-            c.execute("update watches set hit=0 where user_id=? and product_id=?", (w["user_id"], pid))
-
-
 @app.get("/")
 def home():
     return send_from_directory("static", "index.html")
@@ -170,8 +147,7 @@ def product(pid):
         return jsonify(error="Product not found"), 404
     d = card(r, _offers_map(c, pid))
     d["hist"] = json.loads(r["hist"])
-    w = c.execute("select target from watches where user_id=? and product_id=?", (uid(), pid)).fetchone()
-    d["watch"] = w["target"] if w else None
+    d["watch"] = None
     c.close()
     return jsonify(d)
 
@@ -195,116 +171,6 @@ def direct_redirect(store_name, pid):
         sname = "Flipkart"
     target = store_url(sname, name, cat)
     return redirect(target)
-
-
-@app.post("/api/register")
-def register():
-    d = request.json or {}
-    name, email, pw = d.get("name", "").strip(), d.get("email", "").strip().lower(), d.get("password", "")
-    if not name or "@" not in email or len(pw) < 6:
-        return jsonify(error="Enter your name, a valid email and a password of 6+ characters."), 400
-    c = db()
-    if c.execute("select 1 from users where email=?", (email,)).fetchone():
-        c.close()
-        return jsonify(error="That email already has an account. Try logging in."), 400
-    cur = c.execute("insert into users(name,email,pw) values(?,?,?)", (name, email, generate_password_hash(pw)))
-    session["uid"] = cur.lastrowid
-    note(c, cur.lastrowid, "Welcome to PriceLens. Track any product and we'll tell you when it reaches your price.")
-    c.commit()
-    c.close()
-    return jsonify(name=name)
-
-
-@app.post("/api/login")
-def login():
-    d = request.json or {}
-    c = db()
-    u = c.execute("select * from users where email=?", (d.get("email", "").strip().lower(),)).fetchone()
-    c.close()
-    if not u or not check_password_hash(u["pw"], d.get("password", "")):
-        return jsonify(error="Email or password doesn't match."), 400
-    session["uid"] = u["id"]
-    return jsonify(name=u["name"])
-
-
-@app.post("/api/logout")
-def logout():
-    session.clear()
-    return jsonify(ok=True)
-
-
-@app.get("/api/me")
-def me():
-    if not uid():
-        return jsonify(name=None)
-    c = db()
-    u = c.execute("select name from users where id=?", (uid(),)).fetchone()
-    c.close()
-    return jsonify(name=u["name"] if u else None)
-
-
-@app.post("/api/watch")
-def watch():
-    if not uid():
-        return jsonify(error="Log in to track prices."), 401
-    d = request.json or {}
-    pid, target = int(d["product_id"]), float(d["target"])
-    c = db()
-    p = c.execute("select * from products where id=?", (pid,)).fetchone()
-    hit = 1 if p["price"] <= target else 0
-    c.execute("insert or replace into watches(user_id,product_id,target,hit) values(?,?,?,?)",
-              (uid(), pid, target, hit))
-    if hit:
-        note(c, uid(), f"{p['name']} is already {inr(p['price'])}, at or below your target of {inr(target)}.")
-    c.commit()
-    c.close()
-    return jsonify(ok=True)
-
-
-@app.delete("/api/watch/<int:pid>")
-def unwatch(pid):
-    c = db()
-    c.execute("delete from watches where user_id=? and product_id=?", (uid(), pid))
-    c.commit()
-    c.close()
-    return jsonify(ok=True)
-
-
-@app.get("/api/notes")
-def notes():
-    if not uid():
-        return jsonify(items=[], unseen=0)
-    c = db()
-    rows = c.execute("select * from notes where user_id=? order by id desc limit 20", (uid(),)).fetchall()
-    c.close()
-    return jsonify(items=[dict(msg=r["msg"], ts=r["ts"], seen=r["seen"]) for r in rows],
-                   unseen=sum(1 for r in rows if not r["seen"]))
-
-
-@app.post("/api/notes/seen")
-def seen():
-    c = db()
-    c.execute("update notes set seen=1 where user_id=?", (uid(),))
-    c.commit()
-    c.close()
-    return jsonify(ok=True)
-
-
-@app.post("/api/tick")
-def tick():
-    """Simulates the market moving: nudges a few prices and fires price alerts."""
-    c = db()
-    out = []
-    for r in random.sample(c.execute("select * from products where coalesce(real,0)=0").fetchall(), 4):
-        h = json.loads(r["hist"])
-        new = round(r["price"] * random.uniform(0.985, 1.012))
-        h[-1] = new
-        c.execute("update products set price=?, hist=? where id=?", (new, json.dumps(h), r["id"]))
-        check_watches(c, r["id"], r["name"], new)
-        out.append(dict(id=r["id"], price=new, day=round((new - h[-2]) / h[-2] * 100, 1)))
-    c.commit()
-    c.close()
-    return jsonify(out)
 
 
 @app.get("/api/live")
