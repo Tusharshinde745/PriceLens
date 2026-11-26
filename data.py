@@ -35,6 +35,7 @@ RECENT_PRODUCTS = [
     # Laptops
     ("MacBook Air M5 (16GB, 512GB, 14-inch)", "Apple", "Laptops", 119900, "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80"),
     ("MacBook Pro M5", "Apple", "Laptops", 169900, "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80"),
+    ("MacBook Neo (Base Model)", "Apple", "Laptops", 69900, "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80"),
 
     # Tablets
     ("iPad Pro 13 (M4)", "Apple", "Tablets", 129900, "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80"),
@@ -168,6 +169,8 @@ DIRECT_PRODUCT_URLS = {
     ('Samsung Galaxy S24 FE', 'Reliance Digital'): 'https://www.reliancedigital.in/samsung-galaxy-s24-fe-5g-128-gb-8-gb-ram-graphite/p/494493014',
     ('MacBook Air M5 (16GB, 512GB, 14-inch)', 'Reliance Digital'): 'https://www.reliancedigital.in/product/apple-mdhe4hna-macbook-air-13-10-core-apple-m5-chip16-gb512-gb-ssdmac-osliquid-retina-3446-cm-136-inch-midnight-mmc4t9-9969451',
     ('MacBook Pro M5', 'Reliance Digital'): 'https://www.reliancedigital.in/product/apple-mde04hna-macbook-pro-apple-m5-chip16-gb512-gb-ssdmacosliquid-retina-xdr-3556-cm-14-inch-space-black-mgt986-9550079',
+    ('MacBook Neo (Base Model)', 'Croma'): 'https://www.croma.com/apple-macbook-neo-13-inch-a18-pro-8gb-512gb-macos-silver-/p/324351',
+    ('MacBook Neo (Base Model)', 'Reliance Digital'): 'https://www.reliancedigital.in/product/apple-mhfd4hna-macbook-neo-apple-a18-pro-chip8-gb256-gb-ssdmacosliquid-retina-3302-cm-13-inch-citrus-mmdg1g-9971839',
     ('iPad Air 11 (M2)', 'Croma'): 'https://www.croma.com/apple-ipad-air-wi-fi-11-inch-128gb-space-grey-2024-model-/p/301927',
     ('iPad Air 11 (M2)', 'Reliance Digital'): 'https://www.reliancedigital.in/product/apple-ipad-air-6th-gen-2024-2759-cm-11-inch-wi-fi-tablet-1-tb-starlight-lvxx25-7621099',
     ('iPad Pro 13 (M4)', 'Croma'): 'https://www.croma.com/apple-ipad-pro-wi-fi-13-inch-1tb-space-black-2024-model-/p/302676',
@@ -221,6 +224,10 @@ REAL_STORE_PRICES = {
     ('MacBook Air M5 (16GB, 512GB, 14-inch)', 'Flipkart'): 132900,
     ('MacBook Air M5 (16GB, 512GB, 14-inch)', 'Croma'): 119900,
     ('MacBook Air M5 (16GB, 512GB, 14-inch)', 'Reliance Digital'): 119900,
+    ('MacBook Neo (Base Model)', 'Amazon.in'): None,
+    ('MacBook Neo (Base Model)', 'Flipkart'): 69900,
+    ('MacBook Neo (Base Model)', 'Croma'): 69900,
+    ('MacBook Neo (Base Model)', 'Reliance Digital'): 69900,
     ('MacBook Pro M5', 'Amazon.in'): 169900,
     ('MacBook Pro M5', 'Flipkart'): 169900,
     ('MacBook Pro M5', 'Croma'): 169900,
@@ -488,6 +495,7 @@ FLIPKART_DIRECT = {
     'MAC MACximal Silky Matte Lipstick Ruby Woo': 'https://www.flipkart.com/m-a-c-macximal-matte-lipstick-ruby-woo/p/itmcb322b5750aaa',
     'MacBook Air M5 (16GB, 512GB, 14-inch)': 'https://www.amazon.in/dp/B0GR1G3C3X',
     'MacBook Air M5 (16GB, 512GB, 14-inch)': 'https://www.flipkart.com/apple-macbook-air-m5-2026-m5-16-gb-512-gb-ssd-tahoe-mdhe4hn-a/p/itm8505e2f874525',
+    'MacBook Neo (Base Model)': 'https://www.flipkart.com/apple-macbook-neo-a18-pro-2026-pro-8-gb-512-gb-ssd-tahoe-mhfc4hn-a-mhfc4hn-a/p/itmb34fceee245e8',
     'MacBook Pro M5': 'https://www.flipkart.com/apple-macbook-pro-m5-16-gb-512-gb-ssd-macos-tahoe-mde44hn-a/p/itmaf8d73800df2b',
     'MacBook Air 13 M3': 'https://www.flipkart.com/apple-m3-16-gb-256-gb-ssd-macos-sequoia-mc8k4hn-a/p/itmf3ae9017ad837',
     'MacBook Pro 14 M4': 'https://www.flipkart.com/apple-m4-16-gb-512-gb-ssd-macos-sequoia-mw2w3hn-a/p/itm4a2cfa5fedc01',

@@ -65,7 +65,7 @@ def init():
         rnd = random.Random(42)
         for name, brand, cat, base_price, img in RECENT_PRODUCTS:
             p_stores = stores_for_product(name, cat)
-            lowest = min(REAL_STORE_PRICES.get((name, s), base_price) for s in p_stores)
+            lowest = min((REAL_STORE_PRICES.get((name, s), base_price) for s in p_stores if REAL_STORE_PRICES.get((name, s), base_price) is not None), default=base_price)
             h = make_history(float(lowest), rnd)
             h[-1] = lowest
             c.execute("insert into products(name,brand,cat,price,hist,image,real) values(?,?,?,?,?,?,1)",
@@ -86,20 +86,28 @@ def card(r, offers_map=None):
     stores = []
     for s in stores_for_product(name, cat):
         offer = live_offers.get(s)
-        p = int(round(offer["price"])) if offer and offer["price"] else REAL_STORE_PRICES.get((name, s), int(base_mrp))
-        u = offer["url"] if offer and offer.get("url") else store_url(s, name, cat)
-        stores.append(dict(name=s, price=p, url=u))
+        if offer and offer["price"]:
+            p = int(round(offer["price"]))
+            u = offer["url"] if offer.get("url") else store_url(s, name, cat)
+            stores.append(dict(name=s, price=p, url=u, available=True))
+        elif (name, s) in REAL_STORE_PRICES and REAL_STORE_PRICES[(name, s)] is None:
+            stores.append(dict(name=s, price=None, url=None, available=False))
+        else:
+            p = REAL_STORE_PRICES.get((name, s), int(base_mrp))
+            u = store_url(s, name, cat)
+            stores.append(dict(name=s, price=p, url=u, available=True))
 
-    stores.sort(key=lambda x: x["price"])
-    lowest_price = stores[0]["price"]
-    highest_price = stores[-1]["price"]
-    lowest_store = stores[0]["name"]
-    highest_store = stores[-1]["name"]
+    avail_stores = sorted([s for s in stores if s["available"]], key=lambda x: x["price"])
+    stores.sort(key=lambda x: (not x["available"], x["price"] if x["price"] is not None else 10**9))
+    lowest_price = avail_stores[0]["price"] if avail_stores else int(base_mrp)
+    highest_price = avail_stores[-1]["price"] if avail_stores else int(base_mrp)
+    lowest_store = avail_stores[0]["name"] if avail_stores else stores[0]["name"]
+    highest_store = avail_stores[-1]["name"] if avail_stores else stores[-1]["name"]
     savings = highest_price - lowest_price
     savings_pct = round((savings / highest_price) * 100, 1) if highest_price > 0 else 0
 
     for s in stores:
-        s["is_lowest"] = (s["price"] == lowest_price)
+        s["is_lowest"] = (s["available"] and s["price"] == lowest_price)
 
     if h:
         h[-1] = lowest_price

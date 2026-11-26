@@ -1028,3 +1028,11 @@ footer {
   .search-submit-btn { padding: 10px 16px; }
   .modal-card { padding: 20px; }
 }
+
+.store-link-btn.is-unavailable, .store-card.is-unavailable {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: var(--surface-alt, #f8fafc);
+  border-style: dashed;
+  pointer-events: none;
+}
