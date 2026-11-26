@@ -51,7 +51,7 @@ app.get("/api/status", (req, res) => {
 
 // Serve standard HTML, CSS, JS frontend from static/
 const staticDir = path.join(__dirname, "..", "static");
-app.use(express.static(staticDir));
+app.use("/static", express.static(staticDir));
 app.get("*", (req, res) => {
   res.sendFile(path.join(staticDir, "index.html"));
 });
