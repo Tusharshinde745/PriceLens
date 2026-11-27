@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s), inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
-let P=[], cat='Bestsellers', cur=null, openId=null, sortv='';
+let P=[], cat='Bestsellers', sortv='', storeFilterVal='';
 const BESTSELLER_NAMES=new Set([
   'Samsung Galaxy S25 Ultra','OnePlus 15','Apple iPhone 18 Pro','Samsung Galaxy S26',
   'MacBook Air M5 (16GB, 512GB, 14-inch)','MacBook Neo (Base Model)',
@@ -9,16 +9,11 @@ const BESTSELLER_NAMES=new Set([
   'The Ordinary Glycolic Acid 7% Exfoliating Toner (240ml)'
 ]);
 
-async function api(u,o={}){
-  const r=await fetch(u,{method:o.method||'GET',headers:{'Content-Type':'application/json'},body:o.body?JSON.stringify(o.body):undefined});
+async function api(u){
+  const r=await fetch(u);
   const j=await r.json().catch(()=>({}));
-  if(!r.ok)throw Object.assign(new Error(j.error||'Something went wrong'),{status:r.status});
+  if(!r.ok)throw new Error(j.error||'Something went wrong');
   return j;
-}
-
-function toast(t){
-  const e=$('#toast');e.textContent=t;e.classList.add('show');
-  clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),3500);
 }
 
 /* ── Drawer ── */
@@ -60,15 +55,6 @@ $('#quickChips').addEventListener('click',e=>{
 });
 
 /* ── Grid & Filtering ── */
-let storeFilterVal='';
-
-function applySearch(query){
-  $('#q').value=query;
-  $('#clearSearch').hidden=false;
-  drawGrid();
-  $('#shop').scrollIntoView({behavior:'smooth'});
-}
-
 function resetFilters(){
   cat='Bestsellers';$('#q').value='';$('#clearSearch').hidden=true;
   storeFilterVal='';sortv='';$('#storeFilter').value='';$('#sort').value='';
@@ -210,9 +196,8 @@ function wire(el,c,tip){
 
 /* ── Product Modal ── */
 let range=365;
-async function openProduct(id,quiet){
-  openId=id;
-  const d=await api('/api/products/'+id);cur=d;
+async function openProduct(id){
+  const d=await api('/api/products/'+id);
   const draw=()=>{
     const c=chart(d.hist,range);
     $('#pbody').innerHTML=`
@@ -277,36 +262,21 @@ async function openProduct(id,quiet){
 document.addEventListener('click',e=>{
   if(e.target.matches('[data-close]')||e.target.classList.contains('modal-scrim')){
     document.querySelectorAll('.modal-scrim').forEach(s=>s.classList.remove('open'));
-    openId=null;
   }
 });
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     document.querySelectorAll('.modal-scrim').forEach(s=>s.classList.remove('open'));
-    toggleDrawer(false);openId=null;
+    toggleDrawer(false);
   }
 });
-
-/* ── Live clock & refresh ── */
-function updateLiveClock(){
-  const now=new Date();
-  const t=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  const el=$('#liveClock');
-  if(el) el.innerHTML=`Last synced at ${t}`;
-}
-async function refreshLivePrices(){
-  try{
-    const fresh=await api('/api/products');
-    if(fresh&&fresh.length){P=fresh;updateLiveClock();}
-  }catch(e){}
-}
 
 /* ── Init ── */
 (async()=>{
   P=await api('/api/products');
   renderFilterState();
   drawGrid();
-  updateLiveClock();
-  setInterval(refreshLivePrices,15000);
-  setInterval(updateLiveClock,1000);
+  setInterval(async()=>{
+    try{const fresh=await api('/api/products');if(fresh&&fresh.length)P=fresh;}catch{}
+  },15000);
 })();
