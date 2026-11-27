@@ -3758,22 +3758,22 @@
     "day": 11.1,
     "high": 79900,
     "highest_price": 69900,
-    "highest_store": "Reliance Digital",
+    "highest_store": "Flipkart",
     "id": 10,
     "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/computer/p/a/6/-enriched-transparent-2-original-imahzxavzbnxjhxp.png",
     "low": 58310,
-    "lowest_price": 69900,
-    "lowest_store": "Flipkart",
-    "mrp": 69900.0,
+    "lowest_price": 65900,
+    "lowest_store": "Croma",
+    "mrp": 69900,
     "name": "MacBook Neo (Base Model)",
-    "price": 69900,
+    "price": 65900,
     "real": 1,
-    "savings": 0,
-    "savings_pct": 0.0,
+    "savings": 4000,
+    "savings_pct": 5.7,
     "stores": [
       {
         "available": true,
-        "is_lowest": true,
+        "is_lowest": false,
         "name": "Flipkart",
         "price": 69900,
         "url": "https://www.flipkart.com/apple-macbook-neo-a18-pro-2026-pro-8-gb-512-gb-ssd-tahoe-mhfc4hn-a-mhfc4hn-a/p/itmb34fceee245e8"
@@ -3782,14 +3782,14 @@
         "available": true,
         "is_lowest": true,
         "name": "Croma",
-        "price": 69900,
+        "price": 65900,
         "url": "https://www.croma.com/apple-macbook-neo-13-inch-a18-pro-8gb-512gb-macos-silver-/p/324351"
       },
       {
         "available": true,
         "is_lowest": true,
         "name": "Reliance Digital",
-        "price": 69900,
+        "price": 65900,
         "url": "https://www.reliancedigital.in/product/apple-mhfd4hna-macbook-neo-apple-a18-pro-chip8-gb256-gb-ssdmacosliquid-retina-3302-cm-13-inch-citrus-mmdg1g-9971839"
       },
       {
