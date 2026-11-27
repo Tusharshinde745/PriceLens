@@ -45,9 +45,7 @@ function renderFilterState(){
     </button>`;
   }).join('');
 
-  $('#quickChips').innerHTML=cats.map(c=>`
-    <button class="cat-chip ${c===cat?'active':''}" data-c="${c}">${c}</button>
-  `).join('');
+  $('#quickChips').innerHTML=`<button class="cat-chip ${cat==='Bestsellers'?'active':''}" data-c="Bestsellers">Bestsellers</button>`;
 }
 
 function selectCategory(c){cat=c;renderFilterState();drawGrid();toggleDrawer(false);}
