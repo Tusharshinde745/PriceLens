@@ -96,7 +96,7 @@ function drawGrid(){
       <div class="card-img-wrap">
         <span class="card-badge"><span class="badge-dot">●</span> Live</span>
         ${p.savings>0?`<span class="card-savings-badge">Save ${inr(p.savings)}</span>`:''}
-        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=600&auto=format&fit=crop&q=80'">
+        <img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=600&auto=format&fit=crop&q=80'">
       </div>
       <div class="card-body">
         <div class="card-meta">${p.brand} &nbsp;•&nbsp; ${p.cat}</div>

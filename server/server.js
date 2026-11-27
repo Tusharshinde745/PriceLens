@@ -18,6 +18,7 @@ const PORT = process.env.PORT || 5000;
 
 app.get("/api/products", (req, res) => {
   try {
+    res.set("Cache-Control", "public, max-age=15");
     res.json(getAllProducts());
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -51,7 +52,7 @@ app.get("/api/status", (req, res) => {
 
 // Serve standard HTML, CSS, JS frontend from static/
 const staticDir = path.join(__dirname, "..", "static");
-app.use("/static", express.static(staticDir));
+app.use("/static", express.static(staticDir, { maxAge: "1d" }));
 app.get("*", (req, res) => {
   res.sendFile(path.join(staticDir, "index.html"));
 });
