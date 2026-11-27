@@ -1255,47 +1255,47 @@
     "cat": "Phones",
     "day": 4.8,
     "high": 74987,
-    "highest_price": 119900,
-    "highest_store": "Croma",
+    "highest_price": 164900,
+    "highest_store": "Amazon.in",
     "id": 4,
     "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/f/4/x/-resized-original-imahggeu8hebsuhd.jpeg?q=70",
     "low": 58247,
-    "lowest_price": 118900,
-    "lowest_store": "Amazon.in",
-    "mrp": 119900,
-    "name": "Apple iPhone 16 Pro",
-    "price": 118900,
+    "lowest_price": 164900,
+    "lowest_store": "Flipkart",
+    "mrp": 164900,
+    "name": "Apple iPhone 18 Pro",
+    "price": 164900,
     "real": 1,
-    "savings": 1000,
-    "savings_pct": 0.8,
+    "savings": 0,
+    "savings_pct": 0.0,
     "stores": [
       {
-        "name": "Amazon.in",
-        "price": 118900,
-        "url": "https://www.amazon.in/s?k=Apple+iPhone+16+Pro+128GB",
+        "name": "Flipkart",
+        "price": 164900,
+        "url": "https://www.flipkart.com/apple-iphone-18-pro-burgundy-256-gb/p/itm2b2c10b01cc46",
         "available": true,
         "is_lowest": true
       },
       {
-        "name": "Flipkart",
-        "price": 119900,
-        "url": "https://www.flipkart.com/search?q=Apple+iPhone+16+Pro+128GB",
+        "name": "Reliance Digital",
+        "price": 164900,
+        "url": "https://www.reliancedigital.in/c/resource-center/bg/iphone-18-pro-max-price-in-india-expected-price",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
+      },
+      {
+        "name": "Amazon.in",
+        "price": 164900,
+        "url": "https://www.amazon.in/s?k=Apple+iPhone+18+Pro",
+        "available": true,
+        "is_lowest": true
       },
       {
         "name": "Croma",
-        "price": 119900,
-        "url": "https://www.croma.com/apple-iphone-16-pro-128gb-black-titanium-/p/309469",
+        "price": 164900,
+        "url": "https://www.croma.com/search/?text=Apple+iPhone+18+Pro",
         "available": true,
-        "is_lowest": false
-      },
-      {
-        "name": "Reliance Digital",
-        "price": 119900,
-        "url": "https://www.reliancedigital.in/apple-iphone-16-pro-128-gb-black-titanium/p/494493011",
-        "available": true,
-        "is_lowest": false
+        "is_lowest": true
       }
     ],
     "verified": "Real-Time Active",
@@ -1672,45 +1672,45 @@
     "cat": "Phones",
     "day": 3.3,
     "high": 57529,
-    "highest_price": 69999,
-    "highest_store": "Flipkart",
+    "highest_price": 89900,
+    "highest_store": "Amazon.in",
     "id": 5,
     "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/mobile/h/d/9/-resized-original-imagtc2qzgnnuhxh.jpeg",
     "low": 45354,
-    "lowest_price": 69900,
-    "lowest_store": "Amazon.in",
-    "mrp": 69999,
-    "name": "Apple iPhone 16",
-    "price": 69900,
+    "lowest_price": 89900,
+    "lowest_store": "Reliance Digital",
+    "mrp": 89900,
+    "name": "Apple iPhone 18",
+    "price": 89900,
     "real": 1,
-    "savings": 99,
-    "savings_pct": 0.1,
+    "savings": 0,
+    "savings_pct": 0.0,
     "stores": [
       {
+        "name": "Reliance Digital",
+        "price": 89900,
+        "url": "https://www.reliancedigital.in/c/resource-center/bg/iphone-18-pro-price",
+        "available": true,
+        "is_lowest": true
+      },
+      {
         "name": "Amazon.in",
-        "price": 69900,
-        "url": "https://www.amazon.in/dp/B0DGJHBX5Y",
+        "price": 89900,
+        "url": "https://www.amazon.in/s?k=Apple+iPhone+18",
         "available": true,
         "is_lowest": true
       },
       {
         "name": "Flipkart",
-        "price": 69999,
-        "url": "https://www.flipkart.com/apple-iphone-16-black-128-gb/p/itm518e6b4f3971b",
-        "available": true,
-        "is_lowest": false
-      },
-      {
-        "name": "Croma",
-        "price": 69900,
-        "url": "https://www.croma.com/apple-iphone-16-128gb-black-/p/309463",
+        "price": 89900,
+        "url": "https://www.flipkart.com/search?q=Apple+iPhone+18",
         "available": true,
         "is_lowest": true
       },
       {
-        "name": "Reliance Digital",
-        "price": 69900,
-        "url": "https://www.reliancedigital.in/apple-iphone-16-128-gb-black/p/494493007",
+        "name": "Croma",
+        "price": 89900,
+        "url": "https://www.croma.com/search/?text=Apple+iPhone+18",
         "available": true,
         "is_lowest": true
       }
@@ -2089,47 +2089,47 @@
     "cat": "Phones",
     "day": 7.7,
     "high": 42652,
-    "highest_price": 44999,
-    "highest_store": "Croma",
+    "highest_price": 87999,
+    "highest_store": "Amazon.in",
     "id": 6,
     "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/mobile/u/r/t/-resized-original-imahfw4ahyk6qfxe.jpeg",
     "low": 33232,
-    "lowest_price": 39999,
-    "lowest_store": "Amazon.in",
-    "mrp": 44999,
-    "name": "Samsung Galaxy S24 FE",
-    "price": 39999,
+    "lowest_price": 87999,
+    "lowest_store": "Flipkart",
+    "mrp": 87999,
+    "name": "Samsung Galaxy S26",
+    "price": 87999,
     "real": 1,
-    "savings": 5000,
-    "savings_pct": 11.1,
+    "savings": 0,
+    "savings_pct": 0.0,
     "stores": [
       {
-        "name": "Amazon.in",
-        "price": 39999,
-        "url": "https://www.amazon.in/dp/B0DHL7YT5S",
-        "available": true,
-        "is_lowest": true
-      },
-      {
         "name": "Flipkart",
-        "price": 39999,
-        "url": "https://www.flipkart.com/samsung-galaxy-s24-fe-5g-blue-128-gb/p/itme960199e26f23",
+        "price": 87999,
+        "url": "https://www.flipkart.com/q/samsung-s26",
         "available": true,
         "is_lowest": true
       },
       {
         "name": "Croma",
-        "price": 44999,
-        "url": "https://www.croma.com/samsung-galaxy-s24-fe-5g-8gb-ram-128gb-graphite-/p/311523",
+        "price": 87999,
+        "url": "https://www.croma.com/unboxed/samsung-galaxy-s26-series-sale-india-price-discounts-and-more",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
+      },
+      {
+        "name": "Amazon.in",
+        "price": 87999,
+        "url": "https://www.amazon.in/s?k=Samsung+Galaxy+S26",
+        "available": true,
+        "is_lowest": true
       },
       {
         "name": "Reliance Digital",
-        "price": 44999,
-        "url": "https://www.reliancedigital.in/samsung-galaxy-s24-fe-5g-128-gb-8-gb-ram-graphite/p/494493014",
+        "price": 87999,
+        "url": "https://www.reliancedigital.in/search?q=Samsung+Galaxy+S26:relevance",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
       }
     ],
     "verified": "Real-Time Active",
