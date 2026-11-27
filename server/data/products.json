@@ -426,25 +426,25 @@
     "id": 2,
     "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/mobile/m/v/q/-original-imahrkfunma8fdpq.jpeg",
     "low": 45982,
-    "lowest_price": 57990,
-    "lowest_store": "Amazon.in",
+    "lowest_price": 57999,
+    "lowest_store": "Flipkart",
     "mrp": 57990.0,
     "name": "Samsung Galaxy S25",
     "price": 57990,
     "real": 1,
-    "savings": 17009,
+    "savings": 17000,
     "savings_pct": 22.7,
     "stores": [
       {
-        "available": true,
-        "is_lowest": true,
+        "available": false,
+        "is_lowest": false,
         "name": "Amazon.in",
-        "price": 57990,
-        "url": "https://www.amazon.in/s?k=Samsung+Galaxy+S25"
+        "price": null,
+        "url": null
       },
       {
         "available": true,
-        "is_lowest": false,
+        "is_lowest": true,
         "name": "Flipkart",
         "price": 57999,
         "url": "https://www.flipkart.com/samsung-galaxy-s25-5g-snapdragon-icyblue-128-gb/p/itm95bd766346a05"
@@ -838,8 +838,8 @@
     "cat": "Phones",
     "day": 20.4,
     "high": 60669,
-    "highest_price": 85999,
-    "highest_store": "Amazon.in",
+    "highest_price": 74999,
+    "highest_store": "Flipkart",
     "id": 3,
     "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/n/8/9/-resized-original-imahgt9jhcm4t86y.jpeg?q=70",
     "low": 41656,
@@ -849,8 +849,8 @@
     "name": "OnePlus 15",
     "price": 72999,
     "real": 1,
-    "savings": 13000,
-    "savings_pct": 15.1,
+    "savings": 2000,
+    "savings_pct": 2.7,
     "stores": [
       {
         "name": "Croma",
@@ -875,9 +875,9 @@
       },
       {
         "name": "Amazon.in",
-        "price": 85999,
-        "url": "https://www.amazon.in/s?k=OnePlus+15+5G",
-        "available": true,
+        "price": null,
+        "url": null,
+        "available": false,
         "is_lowest": false
       }
     ],
@@ -1256,7 +1256,7 @@
     "day": 4.8,
     "high": 74987,
     "highest_price": 164900,
-    "highest_store": "Amazon.in",
+    "highest_store": "Croma",
     "id": 4,
     "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/f/4/x/-resized-original-imahggeu8hebsuhd.jpeg?q=70",
     "low": 58247,
@@ -1285,10 +1285,10 @@
       },
       {
         "name": "Amazon.in",
-        "price": 164900,
-        "url": "https://www.amazon.in/s?k=Apple+iPhone+18+Pro",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Croma",
@@ -1673,7 +1673,7 @@
     "day": 3.3,
     "high": 57529,
     "highest_price": 89900,
-    "highest_store": "Amazon.in",
+    "highest_store": "Croma",
     "id": 5,
     "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/mobile/h/d/9/-resized-original-imagtc2qzgnnuhxh.jpeg",
     "low": 45354,
@@ -1695,10 +1695,10 @@
       },
       {
         "name": "Amazon.in",
-        "price": 89900,
-        "url": "https://www.amazon.in/s?k=Apple+iPhone+18",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Flipkart",
@@ -2090,7 +2090,7 @@
     "day": 7.7,
     "high": 42652,
     "highest_price": 87999,
-    "highest_store": "Amazon.in",
+    "highest_store": "Reliance Digital",
     "id": 6,
     "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/mobile/u/r/t/-resized-original-imahfw4ahyk6qfxe.jpeg",
     "low": 33232,
@@ -2119,10 +2119,10 @@
       },
       {
         "name": "Amazon.in",
-        "price": 87999,
-        "url": "https://www.amazon.in/s?k=Samsung+Galaxy+S26",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Reliance Digital",
@@ -3346,7 +3346,7 @@
     "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/computer/x/2/q/-original-imahgxehshse9wbw.jpeg",
     "low": 143029,
     "lowest_price": 169900,
-    "lowest_store": "Amazon.in",
+    "lowest_store": "Flipkart",
     "mrp": 169900.0,
     "name": "MacBook Pro M5",
     "price": 169900,
@@ -3355,11 +3355,11 @@
     "savings_pct": 0.0,
     "stores": [
       {
-        "available": true,
-        "is_lowest": true,
+        "available": false,
+        "is_lowest": false,
         "name": "Amazon.in",
-        "price": 169900,
-        "url": "https://www.amazon.in/s?k=MacBook+Pro+M5"
+        "price": null,
+        "url": null
       },
       {
         "available": true,
@@ -6682,7 +6682,7 @@
     "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/gamingconsole/o/a/6/visual-2000-gb-internal-storage-ultra-fast-ssd-sony-ps5-pro-2-tb-original-imahgwu6dmyqykhk.jpeg",
     "low": 56919,
     "lowest_price": 69990,
-    "lowest_store": "Amazon.in",
+    "lowest_store": "Croma",
     "mrp": 69990.0,
     "name": "PlayStation 5 Pro",
     "price": 69990,
@@ -6691,11 +6691,11 @@
     "savings_pct": 35.0,
     "stores": [
       {
-        "available": true,
-        "is_lowest": true,
+        "available": false,
+        "is_lowest": false,
         "name": "Amazon.in",
-        "price": 69990,
-        "url": "https://www.amazon.in/s?k=PlayStation+5+Pro"
+        "price": null,
+        "url": null
       },
       {
         "available": true,
@@ -15642,7 +15642,7 @@
     "cat": "Audio",
     "price": 59900,
     "mrp": 59900,
-    "lowest_store": "Amazon.in",
+    "lowest_store": "Flipkart",
     "lowest_price": 59900,
     "highest_store": "Reliance Digital",
     "highest_price": 59900,
@@ -15657,10 +15657,10 @@
     "stores": [
       {
         "name": "Amazon.in",
-        "price": 59900,
-        "url": "https://www.amazon.in/s?k=Apple+AirPods+Max+%28USB-C%29",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Flipkart",
@@ -16476,7 +16476,7 @@
     "cat": "Audio",
     "price": 14999,
     "mrp": 14999,
-    "lowest_store": "Amazon.in",
+    "lowest_store": "Flipkart",
     "lowest_price": 14999,
     "highest_store": "Reliance Digital",
     "highest_price": 14999,
@@ -16491,10 +16491,10 @@
     "stores": [
       {
         "name": "Amazon.in",
-        "price": 14999,
-        "url": "https://www.amazon.in/s?k=Marshall+Monitor+III+A.N.C.",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Flipkart",
@@ -18144,12 +18144,12 @@
     "cat": "Tablets",
     "price": 124900,
     "mrp": 129900,
-    "lowest_store": "Amazon.in",
-    "lowest_price": 124900,
+    "lowest_store": "Flipkart",
+    "lowest_price": 129900,
     "highest_store": "Reliance Digital",
     "highest_price": 129900,
-    "savings": 5000,
-    "savings_pct": 3.8,
+    "savings": 0,
+    "savings_pct": 0.0,
     "day": 0.0,
     "low": 112078,
     "high": 134187,
@@ -18159,31 +18159,31 @@
     "stores": [
       {
         "name": "Amazon.in",
-        "price": 124900,
-        "url": "https://www.amazon.in/s?k=Apple+iPad+Pro+13-inch+%28M4%2C+Wi-Fi%2C+256GB%29",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Flipkart",
         "price": 129900,
         "url": "https://www.flipkart.com/search?q=Apple+iPad+Pro+13-inch+%28M4%2C+Wi-Fi%2C+256GB%29",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
       },
       {
         "name": "Croma",
         "price": 129900,
         "url": "https://www.croma.com/search/?text=Apple+iPad+Pro+13-inch+%28M4%2C+Wi-Fi%2C+256GB%29",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
       },
       {
         "name": "Reliance Digital",
         "price": 129900,
         "url": "https://www.reliancedigital.in/search?q=Apple+iPad+Pro+13-inch+%28M4%2C+Wi-Fi%2C+256GB%29:relevance",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
       }
     ],
     "hist": [
@@ -18561,12 +18561,12 @@
     "cat": "Tablets",
     "price": 104999,
     "mrp": 111891,
-    "lowest_store": "Amazon.in",
-    "lowest_price": 104999,
+    "lowest_store": "Croma",
+    "lowest_price": 108994,
     "highest_store": "Reliance Digital",
     "highest_price": 111891,
-    "savings": 6892,
-    "savings_pct": 6.2,
+    "savings": 2897,
+    "savings_pct": 2.6,
     "day": 0.0,
     "low": 94916,
     "high": 112255,
@@ -18576,17 +18576,17 @@
     "stores": [
       {
         "name": "Amazon.in",
-        "price": 104999,
-        "url": "https://www.amazon.in/s?k=Samsung+Galaxy+Tab+S10+Ultra+%28Wi-Fi%2C+12GB%2F256GB%29",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Croma",
         "price": 108994,
         "url": "https://www.croma.com/search/?text=Samsung+Galaxy+Tab+S10+Ultra+%28Wi-Fi%2C+12GB%2F256GB%29",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
       },
       {
         "name": "Flipkart",
@@ -19812,12 +19812,12 @@
     "cat": "Tablets",
     "price": 29999,
     "mrp": 30999,
-    "lowest_store": "Amazon.in",
-    "lowest_price": 29999,
-    "highest_store": "Croma",
+    "lowest_store": "Flipkart",
+    "lowest_price": 30499,
+    "highest_store": "Reliance Digital",
     "highest_price": 30999,
-    "savings": 1000,
-    "savings_pct": 3.2,
+    "savings": 500,
+    "savings_pct": 1.6,
     "day": 0.0,
     "low": 28261,
     "high": 32615,
@@ -19827,17 +19827,17 @@
     "stores": [
       {
         "name": "Amazon.in",
-        "price": 29999,
-        "url": "https://www.amazon.in/s?k=Xiaomi+Pad+7+%28Wi-Fi%2C+12GB%2F256GB%29",
-        "available": true,
-        "is_lowest": true
+        "price": null,
+        "url": null,
+        "available": false,
+        "is_lowest": false
       },
       {
         "name": "Flipkart",
         "price": 30499,
         "url": "https://www.flipkart.com/search?q=Xiaomi+Pad+7+%28Wi-Fi%2C+12GB%2F256GB%29",
         "available": true,
-        "is_lowest": false
+        "is_lowest": true
       },
       {
         "name": "Croma",
