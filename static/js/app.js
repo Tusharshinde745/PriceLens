@@ -363,6 +363,9 @@ function openProfileModal(){
 document.querySelectorAll('.auth-tab').forEach(b=>b.addEventListener('click',()=>openAuthModal(b.dataset.authTab)));
 $('#closeAuthModal')?.addEventListener('click',()=>$('#authModal').hidden=true);
 $('#closeProfileModal')?.addEventListener('click',()=>$('#profileModal').hidden=true);
+$('#authModal')?.addEventListener('click',e=>{if(e.target.id==='authModal')$('#authModal').hidden=true;});
+$('#profileModal')?.addEventListener('click',e=>{if(e.target.id==='profileModal')$('#profileModal').hidden=true;});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#authModal'))$('#authModal').hidden=true;if($('#profileModal'))$('#profileModal').hidden=true;}});
 $('#fillDemoBtn')?.addEventListener('click',()=>{
   $('#authEmail').value='tushar@pricelens.in';
   $('#authPassword').value='demo1234';
