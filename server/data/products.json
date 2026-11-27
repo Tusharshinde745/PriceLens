@@ -838,47 +838,47 @@
     "cat": "Phones",
     "day": 20.4,
     "high": 60669,
-    "highest_price": 69999,
-    "highest_store": "Reliance Digital",
+    "highest_price": 85999,
+    "highest_store": "Amazon.in",
     "id": 3,
-    "image": "https://rukminim2.flixcart.com/image/300/300/xif0q/mobile/t/u/y/13-cph2649-oneplus-resized-original-imahhj8yykpcpmhw.jpeg",
+    "image": "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/n/8/9/-resized-original-imahgt9jhcm4t86y.jpeg?q=70",
     "low": 41656,
-    "lowest_price": 54901,
-    "lowest_store": "Flipkart",
-    "mrp": 54901.0,
-    "name": "OnePlus 13",
-    "price": 54901,
+    "lowest_price": 72999,
+    "lowest_store": "Croma",
+    "mrp": 85999,
+    "name": "OnePlus 15",
+    "price": 72999,
     "real": 1,
-    "savings": 15098,
-    "savings_pct": 21.6,
+    "savings": 13000,
+    "savings_pct": 15.1,
     "stores": [
       {
-        "available": true,
-        "is_lowest": true,
-        "name": "Flipkart",
-        "price": 54901,
-        "url": "https://www.flipkart.com/oneplus-13-black-eclipse-256-gb/p/itmb4659fd2a037f"
-      },
-      {
-        "available": true,
-        "is_lowest": false,
-        "name": "Amazon.in",
-        "price": 64999,
-        "url": "https://www.amazon.in/dp/B0DQ8R1DB5"
-      },
-      {
-        "available": true,
-        "is_lowest": false,
         "name": "Croma",
-        "price": 69999,
-        "url": "https://www.croma.com/oneplus-13-5g-12gb-ram-256gb-black-eclipse-/p/312541"
+        "price": 72999,
+        "url": "https://www.croma.com/unboxed/how-to-watch-oneplus-15-launch",
+        "available": true,
+        "is_lowest": true
       },
       {
-        "available": true,
-        "is_lowest": false,
         "name": "Reliance Digital",
-        "price": 69999,
-        "url": "https://www.reliancedigital.in/product/oneplus-13-256-gb-12-gb-ram-midnight-ocean-mobile-phone-m5nsa1-8822006"
+        "price": 72999,
+        "url": "https://www.reliancedigital.in/product/oneplus-15-5g-512-gb-16-gb-ram-infinite-black-mobile-phone-mhufx9-9576562",
+        "available": true,
+        "is_lowest": true
+      },
+      {
+        "name": "Flipkart",
+        "price": 74999,
+        "url": "https://www.flipkart.com/oneplus-15-5g-sand-storm-256-gb/p/itm0106a23b51268",
+        "available": true,
+        "is_lowest": false
+      },
+      {
+        "name": "Amazon.in",
+        "price": 85999,
+        "url": "https://www.amazon.in/s?k=OnePlus+15+5G",
+        "available": true,
+        "is_lowest": false
       }
     ],
     "verified": "Real-Time Active",
