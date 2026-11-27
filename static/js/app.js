@@ -337,8 +337,9 @@ function openAuthModal(mode='signin'){
   authMode=mode;
   const isUp=mode==='signup';
   document.querySelectorAll('.auth-tab').forEach(b=>b.classList.toggle('active',b.dataset.authTab===mode));
-  $('#authNameField').hidden=!isUp;
+  $('#authNameField').hidden=false;
   $('#authName').required=isUp;
+  $('#authName').placeholder=isUp?'e.g. Tushar Shinde':'Optional (e.g. Tushar Shinde)';
   $('#authRememberRow').hidden=isUp;
   $('#authModalTitle').textContent=isUp?'Create your account':'Welcome back';
   $('#authModalSub').textContent=isUp?'Join PriceLens to save your profile and preferred store.':'Sign in to manage your PriceLens profile and store preferences.';
