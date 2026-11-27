@@ -1,5 +1,13 @@
 const $=s=>document.querySelector(s), inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
-let P=[], cat='All', cur=null, openId=null, sortv='';
+let P=[], cat='Bestsellers', cur=null, openId=null, sortv='';
+const BESTSELLER_NAMES=new Set([
+  'Samsung Galaxy S25 Ultra','OnePlus 15','Apple iPhone 18 Pro','Samsung Galaxy S26',
+  'MacBook Air M5 (16GB, 512GB, 14-inch)','MacBook Neo (Base Model)',
+  'Apple iPad Pro 13-inch (M4, Wi-Fi, 256GB)','Samsung Galaxy Tab S10 Ultra (Wi-Fi, 12GB/256GB)',
+  'Sony WH-1000XM5','Apple AirPods Max (USB-C)','Apple Watch Series 10','PlayStation 5 Slim',
+  'Pigeon Amaze Plus Electric Kettle 1.5L','The Ordinary Niacinamide 10% + Zinc 1% (30ml)',
+  'The Ordinary Glycolic Acid 7% Exfoliating Toner (240ml)'
+]);
 
 async function api(u,o={}){
   const r=await fetch(u,{method:o.method||'GET',headers:{'Content-Type':'application/json'},body:o.body?JSON.stringify(o.body):undefined});
@@ -22,23 +30,23 @@ function toggleDrawer(open){
 $('#menuBtn').addEventListener('click',()=>toggleDrawer(true));
 $('#drawerClose').addEventListener('click',()=>toggleDrawer(false));
 $('#drawerScrim').addEventListener('click',()=>toggleDrawer(false));
-$('#logoLink').addEventListener('click',e=>{e.preventDefault();cat='All';renderFilterState();drawGrid();window.scrollTo({top:0,behavior:'smooth'})});
+$('#logoLink').addEventListener('click',e=>{e.preventDefault();cat='Bestsellers';renderFilterState();drawGrid();window.scrollTo({top:0,behavior:'smooth'})});
 
 function renderFilterState(){
-  const cats=['All',...new Set(P.map(p=>p.cat))];
+  const cats=['Bestsellers',...new Set(P.map(p=>p.cat))];
   const heroCountEl=$('#heroProductCount');
   if(heroCountEl) heroCountEl.textContent=P.length;
 
   $('#drawerCats').innerHTML=cats.map(c=>{
-    const cnt=c==='All'?P.length:P.filter(p=>p.cat===c).length;
+    const cnt=c==='Bestsellers'?P.filter(p=>BESTSELLER_NAMES.has(p.name)).length:P.filter(p=>p.cat===c).length;
     return `<button class="cat-item-btn ${c===cat?'active':''}" data-c="${c}">
-      <span>${c==='All'?'All Categories':c}</span>
+      <span>${c}</span>
       <span class="cat-count">${cnt}</span>
     </button>`;
   }).join('');
 
   $('#quickChips').innerHTML=cats.map(c=>`
-    <button class="cat-chip ${c===cat?'active':''}" data-c="${c}">${c==='All'?'All Gadgets':c}</button>
+    <button class="cat-chip ${c===cat?'active':''}" data-c="${c}">${c}</button>
   `).join('');
 }
 
@@ -64,7 +72,7 @@ function applySearch(query){
 }
 
 function resetFilters(){
-  cat='All';$('#q').value='';$('#clearSearch').hidden=true;
+  cat='Bestsellers';$('#q').value='';$('#clearSearch').hidden=true;
   storeFilterVal='';sortv='';$('#storeFilter').value='';$('#sort').value='';
   renderFilterState();drawGrid();
 }
@@ -75,7 +83,7 @@ function drawGrid(){
   if(clearBtn) clearBtn.hidden=!q;
 
   let L=P.filter(p=>{
-    const matchCat=(cat==='All'||p.cat===cat);
+    const matchCat=(cat==='Bestsellers'?(q||storeFilterVal?true:BESTSELLER_NAMES.has(p.name)):p.cat===cat);
     const matchQ=(!q||(p.name+' '+p.brand+' '+p.cat).toLowerCase().includes(q));
     const matchStore=(!storeFilterVal||p.lowest_store===storeFilterVal);
     return matchCat&&matchQ&&matchStore;
@@ -86,7 +94,7 @@ function drawGrid(){
   else if(sortv==='hi') L.sort((a,b)=>b.price-a.price);
   else if(sortv==='drop') L.sort((a,b)=>a.day-b.day);
 
-  $('#catLabel').innerHTML=`${cat==='All'?'All Products':cat} <span id="countLabel">(${L.length} items)</span>`;
+  $('#catLabel').innerHTML=`${cat} <span id="countLabel">(${L.length} items)</span>`;
 
   if(!L.length){
     $('#grid').innerHTML=`
