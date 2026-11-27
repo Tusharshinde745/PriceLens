@@ -31,7 +31,11 @@
       <span class="brand-badge">INDIA</span>
     </a>
   </div>
-  <div class="header-right">
+  <div class="header-right" id="headerAuth">
+    <button class="auth-signin-btn" id="openAuthBtn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Sign In</span>
+    </button>
   </div>
 </header>
 
@@ -157,6 +161,90 @@
 
 <div class="toast" id="toast" role="status"></div>
 
+<div class="auth-modal-backdrop" id="authModal" hidden>
+  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+    <button class="auth-modal-close" id="closeAuthModal" aria-label="Close">&times;</button>
+    <div class="auth-tabs">
+      <button type="button" class="auth-tab active" data-auth-tab="signin">Sign In</button>
+      <button type="button" class="auth-tab" data-auth-tab="signup">Create Account</button>
+    </div>
+    <h2 id="authModalTitle" class="auth-title">Welcome back</h2>
+    <p class="auth-sub" id="authModalSub">Sign in to manage your PriceLens profile and store preferences.</p>
+    <form id="authForm" class="auth-form">
+      <div class="auth-field" id="authNameField" hidden>
+        <label for="authName">Full Name</label>
+        <input type="text" id="authName" placeholder="e.g. Tushar Shinde" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label for="authEmail">Email Address</label>
+        <input type="email" id="authEmail" placeholder="you@example.com" required autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label for="authPassword">Password</label>
+        <input type="password" id="authPassword" placeholder="Minimum 6 characters" required autocomplete="current-password">
+      </div>
+      <div class="auth-row" id="authRememberRow">
+        <label class="auth-check"><input type="checkbox" id="authRemember" checked> Remember me</label>
+        <button type="button" class="auth-demo-btn" id="fillDemoBtn">Use Demo Account</button>
+      </div>
+      <div class="auth-error" id="authError" hidden></div>
+      <button type="submit" class="auth-submit-btn" id="authSubmitBtn">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<div class="auth-modal-backdrop" id="profileModal" hidden>
+  <div class="auth-modal profile-modal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <button class="auth-modal-close" id="closeProfileModal" aria-label="Close">&times;</button>
+    <div class="profile-hero">
+      <div class="profile-avatar-lg" id="profileAvatarLg">TS</div>
+      <div>
+        <h2 id="profileModalTitle" class="auth-title" style="margin-bottom:2px">User Profile</h2>
+        <div class="profile-email-lbl" id="profileEmailLbl">user@example.com</div>
+        <div class="profile-since-lbl" id="profileSinceLbl">Member since Nov 2026</div>
+      </div>
+    </div>
+    <form id="profileForm" class="auth-form">
+      <div class="auth-field">
+        <label for="profName">Full Name</label>
+        <input type="text" id="profName" required>
+      </div>
+      <div class="auth-grid-2">
+        <div class="auth-field">
+          <label for="profPhone">Phone (Optional)</label>
+          <input type="tel" id="profPhone" placeholder="+91 98765 43210">
+        </div>
+        <div class="auth-field">
+          <label for="profCity">City / Region</label>
+          <select id="profCity">
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi NCR">Delhi NCR</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Pune">Pune</option>
+            <option value="Chennai">Chennai</option>
+          </select>
+        </div>
+      </div>
+      <div class="auth-field">
+        <label for="profStore">Preferred Default Store</label>
+        <select id="profStore">
+          <option value="">All Stores</option>
+          <option value="Amazon.in">Amazon.in</option>
+          <option value="Flipkart">Flipkart</option>
+          <option value="Croma">Croma</option>
+          <option value="Reliance Digital">Reliance Digital</option>
+        </select>
+      </div>
+      <div class="profile-actions">
+        <button type="button" class="auth-signout-btn" id="profileSignOutBtn">Sign Out</button>
+        <button type="submit" class="auth-submit-btn">Save Profile</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="pl-toast" id="plToast" hidden></div>
 <script src="/static/js/app.js"></script>
 </body>
 </html>

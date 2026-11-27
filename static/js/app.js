@@ -280,3 +280,136 @@ document.addEventListener('keydown',e=>{
     try{const fresh=await api('/api/products');if(fresh&&fresh.length)P=fresh;}catch{}
   },15000);
 })();
+
+/* ── Login & Profile Management ── */
+const USER_KEY='pricelens_user', USERS_KEY='pricelens_users';
+let authMode='signin';
+
+const getInitials=n=>(n||'U').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const getUser=()=>{try{return JSON.parse(localStorage.getItem(USER_KEY)||'null');}catch{return null;}};
+const setUser=u=>{u?localStorage.setItem(USER_KEY,JSON.stringify(u)):localStorage.removeItem(USER_KEY);renderHeaderAuth();};
+const getUsers=()=>{try{return JSON.parse(localStorage.getItem(USERS_KEY)||'{}');}catch{return {};}};
+
+function showToast(msg){
+  const t=$('#plToast'); if(!t)return;
+  t.textContent=msg; t.hidden=false;
+  clearTimeout(showToast._t);
+  showToast._t=setTimeout(()=>{t.hidden=true;},2600);
+}
+
+function renderHeaderAuth(){
+  const box=$('#headerAuth'); if(!box)return;
+  const u=getUser();
+  if(!u){
+    box.innerHTML=`<button class="auth-signin-btn" id="openAuthBtn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Sign In</span>
+    </button>`;
+    $('#openAuthBtn').addEventListener('click',()=>openAuthModal('signin'));
+    return;
+  }
+  box.innerHTML=`<div class="profile-menu-wrap">
+    <button class="profile-pill" id="profileMenuBtn" aria-expanded="false">
+      <span class="profile-avatar">${getInitials(u.name)}</span>
+      <span>${u.name.split(' ')[0]}</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="profile-dropdown" id="profileDropdown" hidden>
+      <div class="profile-dd-head">
+        <div class="profile-dd-name">${u.name}</div>
+        <div class="profile-dd-email">${u.email}</div>
+      </div>
+      <button type="button" class="profile-dd-item" id="ddOpenProfile">My Profile</button>
+      <button type="button" class="profile-dd-item danger" id="ddSignOut">Sign Out</button>
+    </div>
+  </div>`;
+  $('#profileMenuBtn').addEventListener('click',e=>{
+    e.stopPropagation();
+    const dd=$('#profileDropdown'); dd.hidden=!dd.hidden;
+  });
+  $('#ddOpenProfile').addEventListener('click',()=>{$('#profileDropdown').hidden=true;openProfileModal();});
+  $('#ddSignOut').addEventListener('click',()=>{setUser(null);showToast('Signed out');});
+}
+
+document.addEventListener('click',()=>{const dd=$('#profileDropdown');if(dd)dd.hidden=true;});
+
+function openAuthModal(mode='signin'){
+  authMode=mode;
+  const isUp=mode==='signup';
+  document.querySelectorAll('.auth-tab').forEach(b=>b.classList.toggle('active',b.dataset.authTab===mode));
+  $('#authNameField').hidden=!isUp;
+  $('#authName').required=isUp;
+  $('#authRememberRow').hidden=isUp;
+  $('#authModalTitle').textContent=isUp?'Create your account':'Welcome back';
+  $('#authModalSub').textContent=isUp?'Join PriceLens to save your profile and preferred store.':'Sign in to manage your PriceLens profile and store preferences.';
+  $('#authSubmitBtn').textContent=isUp?'Create Account':'Sign In';
+  $('#authError').hidden=true;
+  $('#authModal').hidden=false;
+}
+
+function openProfileModal(){
+  const u=getUser(); if(!u)return openAuthModal('signin');
+  $('#profileAvatarLg').textContent=getInitials(u.name);
+  $('#profileModalTitle').textContent=u.name;
+  $('#profileEmailLbl').textContent=u.email;
+  $('#profileSinceLbl').textContent=`Member since ${u.since||'Nov 2026'}`;
+  $('#profName').value=u.name||'';
+  $('#profPhone').value=u.phone||'';
+  $('#profCity').value=u.city||'Mumbai';
+  $('#profStore').value=u.preferredStore||'';
+  $('#profileModal').hidden=false;
+}
+
+document.querySelectorAll('.auth-tab').forEach(b=>b.addEventListener('click',()=>openAuthModal(b.dataset.authTab)));
+$('#closeAuthModal')?.addEventListener('click',()=>$('#authModal').hidden=true);
+$('#closeProfileModal')?.addEventListener('click',()=>$('#profileModal').hidden=true);
+$('#fillDemoBtn')?.addEventListener('click',()=>{
+  $('#authEmail').value='tushar@pricelens.in';
+  $('#authPassword').value='demo1234';
+});
+
+$('#authForm')?.addEventListener('submit',e=>{
+  e.preventDefault();
+  const email=$('#authEmail').value.trim().toLowerCase(), pass=$('#authPassword').value;
+  const err=$('#authError');
+  if(pass.length<6){err.textContent='Password must be at least 6 characters.';err.hidden=false;return;}
+  const users=getUsers();
+  if(authMode==='signup'){
+    const name=$('#authName').value.trim();
+    if(!name){err.textContent='Please enter your full name.';err.hidden=false;return;}
+    const user={name,email,password:pass,city:'Mumbai',preferredStore:'',phone:'',since:new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'})};
+    users[email]=user; localStorage.setItem(USERS_KEY,JSON.stringify(users));
+    setUser(user); $('#authModal').hidden=true; showToast(`Welcome, ${name}!`);
+  }else{
+    let user=users[email];
+    if(!user){
+      const name=email==='tushar@pricelens.in'?'Tushar Shinde':email.split('@')[0].replace(/[._-]/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+      user={name,email,password:pass,city:'Mumbai',preferredStore:'',phone:'',since:'Nov 2026'};
+      users[email]=user; localStorage.setItem(USERS_KEY,JSON.stringify(users));
+    }else if(user.password!==pass){
+      err.textContent='Incorrect password. Please try again.';err.hidden=false;return;
+    }
+    setUser(user); $('#authModal').hidden=true; showToast(`Signed in as ${user.name}`);
+  }
+});
+
+$('#profileForm')?.addEventListener('submit',e=>{
+  e.preventDefault();
+  const u=getUser(); if(!u)return;
+  u.name=$('#profName').value.trim()||u.name;
+  u.phone=$('#profPhone').value.trim();
+  u.city=$('#profCity').value;
+  u.preferredStore=$('#profStore').value;
+  const users=getUsers(); users[u.email]=u;
+  localStorage.setItem(USERS_KEY,JSON.stringify(users));
+  setUser(u);
+  if(u.preferredStore){storeFilterVal=u.preferredStore;$('#storeFilter').value=u.preferredStore;drawGrid();}
+  $('#profileModal').hidden=true;
+  showToast('Profile updated');
+});
+
+$('#profileSignOutBtn')?.addEventListener('click',()=>{
+  setUser(null); $('#profileModal').hidden=true; showToast('Signed out');
+});
+
+renderHeaderAuth();
