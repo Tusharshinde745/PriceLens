@@ -67,7 +67,7 @@ function drawGrid(){
   if(clearBtn) clearBtn.hidden=!q;
 
   let L=P.filter(p=>{
-    const matchCat=(cat==='Bestsellers'?(q||storeFilterVal?true:BESTSELLER_NAMES.has(p.name)):p.cat===cat);
+    const matchCat=(cat==='Bestsellers'||p.cat===cat);
     const matchQ=(!q||(p.name+' '+p.brand+' '+p.cat).toLowerCase().includes(q));
     const matchStore=(!storeFilterVal||p.lowest_store===storeFilterVal);
     return matchCat&&matchQ&&matchStore;
